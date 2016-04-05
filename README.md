@@ -1,5 +1,5 @@
 # Slim 3 Authentication
-A fully featured Slim 3 authentication system.  
+A fully featured Slim 3 authentication system (probably the easiest to work with too!).  
 
 This is the full authentication system from my DemoApp repo and it includes many improvements and fixes.  
 
