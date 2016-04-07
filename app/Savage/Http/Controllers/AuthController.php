@@ -5,6 +5,10 @@ namespace Savage\Http\Controllers;
 use Savage\Http\Auth\Models\User;
 use Savage\Utils\Helper;
 
+/**
+ * AuthController handles all of our authentication system.
+ */
+
 class AuthController extends Controller
 {
     public function getLogin()

@@ -6,6 +6,10 @@ use Savage\Http\Auth\Models\User;
 
 use Violin\Violin;
 
+/**
+ * Validator allows us to validate a user's input in requests.
+ */
+
 class Validator extends Violin
 {
     public function __construct()

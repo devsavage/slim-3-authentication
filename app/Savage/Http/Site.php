@@ -4,8 +4,15 @@ namespace Savage\Http;
 
 use Slim\App as Slim;
 
+/**
+ * Site is used to hook everything together.
+ */
+
 class Site extends Slim
 {
+    /**
+     * Customized route mapping.
+     */
     public function route(array $methods, $uri, $controller, $func = null)
     {
         if($func) {

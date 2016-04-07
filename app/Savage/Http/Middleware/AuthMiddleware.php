@@ -2,6 +2,10 @@
 
 namespace Savage\Http\Middleware;
 
+/**
+ * AuthMiddleware is used for routes that require a user to be logged in.
+ */
+
 class AuthMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)

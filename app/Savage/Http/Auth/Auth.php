@@ -2,8 +2,6 @@
 
 namespace Savage\Http\Auth;
 
-use Interop\Container\ContainerInterface;
-
 use Savage\Http\Auth\Models\User;
 use Savage\Utils\Helper;
 use Savage\Utils\Session;

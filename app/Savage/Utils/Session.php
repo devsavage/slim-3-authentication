@@ -2,6 +2,9 @@
 
 namespace Savage\Utils;
 
+/**
+ * Session contains functions to better use PHP's $_SESSION.
+ */
 class Session
 {
     public static function get($key)

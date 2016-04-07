@@ -2,6 +2,10 @@
 
 namespace Savage\Http\Middleware;
 
+/**
+ * GuestMiddleware is used for routes that won't allow authenticated users.
+ */
+
 class GuestMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)

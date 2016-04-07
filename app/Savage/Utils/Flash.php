@@ -2,6 +2,9 @@
 
 namespace Savage\Utils;
 
+/**
+ * Flash extends Slim\Flash\Messages and implements a way to flash messages with the current request.
+ */
 class Flash extends \Slim\Flash\Messages
 {
     protected $forNow = [];
