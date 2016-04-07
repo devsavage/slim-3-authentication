@@ -47,6 +47,6 @@ return [
     },
 
     'auth' => function($container) {
-        return new \Savage\Http\Auth\Auth($container);
+        return new \Savage\Http\Auth\Auth;
     },
 ];

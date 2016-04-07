@@ -17,6 +17,13 @@ class Controller
         $this->container = $container;
     }
 
+    public function __get($property)
+    {
+        if ($this->container->{$property}) {
+            return $this->container->{$property};
+        }
+    }
+
     public function render($name, array $args = [])
     {
         return $this->container->view->render($this->response, $name . '.twig', $args);
@@ -51,8 +58,8 @@ class Controller
         return $this->container->router;
     }
 
-    public function user()
+    public function param($param)
     {
-        return $this->container->auth->user();
+        return $this->request->getParam($param);
     }
 }

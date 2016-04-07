@@ -2,15 +2,27 @@
 
 namespace Savage\Http\Validation;
 
+use Savage\Http\Auth\Models\User;
+
 use Violin\Violin;
-use Interop\Container\ContainerInterface;
 
 class Validator extends Violin
 {
-    protected $user;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct()
     {
-        $this->user = $container->user;
+        $this->addRuleMessages([
+            'uniqueUsername' => 'That username is already in use.',
+            'uniqueEmail' => 'That e-mail is already in use.',
+        ]);
+    }
+
+    public function validate_uniqueUsername($value, $input, $args)
+    {
+        return !(bool) User::where('username', $value)->count();
+    }
+
+    public function validate_uniqueEmail($value, $input, $args)
+    {
+        return !(bool) User::where('username', $value)->count();
     }
 }

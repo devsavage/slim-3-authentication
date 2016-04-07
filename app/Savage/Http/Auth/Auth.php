@@ -10,23 +10,19 @@ use Savage\Utils\Session;
 
 class Auth extends User
 {
-    protected $container;
-
-    public function __construct(ContainerInterface $container) {
-        $this->container = $container;
-    }
-
     public function check()
     {
-        return Session::exists($this->container['settings']['auth']['session_key']);
+        // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
+        return Session::exists('user_id');
     }
 
     public function user()
     {
-        return User::find($this->container['settings']['auth']['session_key']);
+        // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
+        return User::find(Session::get('user_id'));
     }
 
-    public function login($identifier, $password)
+    public function attemptLogin($identifier, $password)
     {
         $user = User::where('email', $identifier)->orWhere('username', $identifier)->first();
 
@@ -35,7 +31,8 @@ class Auth extends User
         }
 
         if(Helper::verifyPassword($password, $user->password)) {
-            Session::set($this->container['settings']['auth']['session_key'], $user->id);
+            // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
+            Session::set('user_id', $user->id);
             return true;
         }
 
@@ -44,6 +41,7 @@ class Auth extends User
 
     public function logout()
     {
-        Session::destroy($this->container['settings']['auth']['session_key']);
+        // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
+        Session::destroy('user_id');
     }
 }

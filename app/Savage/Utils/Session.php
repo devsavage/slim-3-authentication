@@ -6,7 +6,9 @@ class Session
 {
     public static function get($key)
     {
-        return $_SESSION[$key];
+        if(self::exists($key)) {
+            return $_SESSION[$key];
+        }
     }
 
     public static function set($key, $value)

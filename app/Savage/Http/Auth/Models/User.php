@@ -4,6 +4,8 @@ namespace Savage\Http\Auth\Models;
 
 use \Illuminate\Database\Eloquent\Model as Eloquent;
 
+use Interop\Container\ContainerInterface;
+
 class User extends Eloquent
 {
     protected $table = 'users';

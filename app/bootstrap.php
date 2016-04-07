@@ -14,6 +14,6 @@ $app = new App(new Container(
 
 $container = $app->getContainer();
 
-require 'routes.php';
-
 $container['db']->bootEloquent();
+
+require 'routes.php';

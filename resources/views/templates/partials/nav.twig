@@ -1,0 +1,9 @@
+<nav>
+    {% if auth.check %}
+        Welcome, {{ auth.user.username }}!
+        <a href="{{ path_for('auth.logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ path_for('auth.login') }}">Login</a>
+        <a href="{{ path_for('auth.register') }}">Register</a>
+    {% endif %}
+</nav>
