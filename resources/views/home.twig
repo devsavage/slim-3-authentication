@@ -1,0 +1,8 @@
+{% extends 'templates/default.twig' %}
+
+{% block content %}
+    Home
+    <br>
+    <a href="{{ path_for('auth.login') }}">Login</a>
+    <a href="{{ path_for('auth.register') }}">Register</a>
+{% endblock %}
