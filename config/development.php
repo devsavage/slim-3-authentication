@@ -2,6 +2,7 @@
 
 return [
     'settings' => [
+        'baseUrl' => 'http://auth.app:8888/',
         'displayErrorDetails' => true,
         'viewTemplateDirectory' => '../resources/views',
         'determineRouteBeforeAppMiddleware' => true,
@@ -36,6 +37,7 @@ return [
         ]);
 
         $view->addExtension(new \Slim\Views\TwigExtension($container['router'], $container['request']->getUri()));
+        $view->addExtension(new \Savage\Twig\TwigExtension($container));
         $view->getEnvironment()->addGlobal('flash', $container->flash);
         $view->getEnvironment()->addGlobal('auth', [
             'check' => $container->auth->check(),

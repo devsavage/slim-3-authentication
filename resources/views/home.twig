@@ -1,5 +1,11 @@
 {% extends 'templates/default.twig' %}
 
 {% block content %}
-    Home
+<div class="row">
+    <h1>Home</h1>
+    {% if auth.check %}
+        <h3 class="welcome">Welcome, {{ auth.user.username }}!</h3>
+    {% endif %}
+</div>
+
 {% endblock %}
