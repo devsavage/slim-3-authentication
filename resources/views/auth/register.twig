@@ -19,6 +19,7 @@
             <label for="confirm_password">Confirm Password</label>
             <input type="password" name="confirm_password" class="form-control">
         </div>
+        {{ csrf.field | raw }}
         <div class="form-group">
             <input type="submit" value="Register">
         </div>

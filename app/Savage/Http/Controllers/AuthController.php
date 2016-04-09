@@ -21,8 +21,8 @@ class AuthController extends Controller
         $auth = $this->auth->attemptLogin($this->param('identifier'), $this->param('password'));
 
         if(!$auth) {
-            $this->flash('error', 'The credentials you entered were invalid.');
-            return $this->redirect('auth.login');
+            $this->flashNow('error', 'The credentials you entered were invalid.');
+            return $this->render('auth/login');
         }
 
         return $this->redirect();

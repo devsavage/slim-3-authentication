@@ -1,4 +1,5 @@
 <nav>
+    <a href="{{ path_for('home') }}">Home</a>
     {% if auth.check %}
         Welcome, {{ auth.user.username }}!
         <a href="{{ path_for('auth.logout') }}">Logout</a>

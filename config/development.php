@@ -4,6 +4,7 @@ return [
     'settings' => [
         'displayErrorDetails' => true,
         'viewTemplateDirectory' => '../resources/views',
+        'determineRouteBeforeAppMiddleware' => true,
         'auth' => [
             'session_key' => 'user_id'
         ],
@@ -15,7 +16,9 @@ return [
             'database' => 'auth',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci'
-        ]
+        ],
+
+        'excludedRoutes' => []
     ],
 
     'db' => function($container) {
@@ -49,4 +52,22 @@ return [
     'auth' => function($container) {
         return new \Savage\Http\Auth\Auth;
     },
+
+    'csrf' => function($container) {
+        $gaurd = new \Savage\Http\Guard;
+        $gaurd->setExcludedRoutes($container['settings']['excludedRoutes']);
+
+        $gaurd->setFailureCallable(function ($request, $response, $next) use ($container){
+            $request = $request->withAttribute("csrf_status", false);
+            if ($request->getAttribute('csrf_status') === false) {
+                $container->flash->addMessage('error', 'CSRF verification failed. Terminating your request.');
+
+                return $response->withStatus(400)->withRedirect($container['router']->pathFor('home'));
+            } else {
+                return $next($request, $response);
+            }
+        });
+
+        return $gaurd;
+    }
 ];
