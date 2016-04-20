@@ -11,6 +11,9 @@
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <ul class="nav navbar-nav">
         <li><a href="{{ path_for('home') }}">Home</a></li>
+        {% if auth.check %}
+          <li><a href="{{ path_for('auth.account') }}">My Account</a></li>
+        {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
           {% if auth.check %}

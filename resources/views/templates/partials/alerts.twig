@@ -21,3 +21,9 @@
         <strong><i class="fa fa-ban"></i> Error:</strong> {{ flash.getMessage('error').0 }}
     </div>
 {% endif %}
+
+{% if flash.getMessage('raw_error').0 %}
+    <div class="alert alert-danger" role="alert">
+        <strong><i class="fa fa-ban"></i> Error:</strong> {{ flash.getMessage('raw_error').0|raw }}
+    </div>
+{% endif %}

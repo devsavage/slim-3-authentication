@@ -63,8 +63,23 @@ class AuthController extends Controller
             return $this->redirect();
         }
 
-        $this->flash('error', 'There was an error while trying to register your account.');
-        return $this->redirect('auth.register');
+        $errorMessages = "";
+
+        foreach($validator->errors()->all() as $error) {
+            $errorMessages .= "<li>$error</li>";
+        }
+
+        $errorCountMessage = count($validator->errors()->all()) > 1 ? "were some errors" : "was an error";
+        $errorCountMessage2 = count($validator->errors()->all()) > 1 ? "them" : "it";
+
+        $message = "There " . $errorCountMessage . " with your registration: <ul><strong>" . $errorMessages . "</strong></ul>" . "Fix " . $errorCountMessage2 . " and try again.";
+
+        $this->flashNow('raw_error', $message);
+
+        return $this->render('auth/register', [
+            'errors' => $validator->errors(),
+            'data' => $this->request->getParsedBody()
+        ]);
     }
 
 
@@ -73,5 +88,85 @@ class AuthController extends Controller
         $this->auth->logout();
 
         return $this->redirect();
+    }
+
+    public function getAccount() {
+        return $this->render('auth/account');
+    }
+
+    public function postProfile() {
+        $validator = $this->validator();
+
+        $email = $this->param('new_email');
+
+        $validator->validate([
+            'new_email|E-Mail' => [$email, 'required|email|uniqueEmail']
+        ]);
+
+        if($validator->passes()) {
+            $this->auth->user()->update([
+                'email' => $email
+            ]);
+
+            $this->flash('success', 'Your profile has been updated!');
+            return $this->redirect('auth.account');
+        }
+
+        $errorMessages = "";
+
+        foreach($validator->errors()->all() as $error) {
+            $errorMessages .= "<li>$error</li>";
+        }
+
+        $errorCountMessage = count($validator->errors()->all()) > 1 ? "were some errors" : "was an error";
+        $errorCountMessage2 = count($validator->errors()->all()) > 1 ? "them" : "it";
+
+        $message = "There " . $errorCountMessage . " while trying to update your profile: <ul><strong>" . $errorMessages . "</strong></ul>" . "Fix " . $errorCountMessage2 . " and try again.";
+
+        $this->flashNow('raw_error', $message);
+
+        return $this->render('auth/account', [
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    public function postChangePassword() {
+        $validator = $this->validator();
+
+        $current_password = $this->param('current_password');
+        $new_password = $this->param('new_password');
+        $confirm_new_password = $this->param('confirm_new_password');
+
+        $validator->validate([
+            'current_password|Current Password' => [$current_password, 'required|matchesCurrentPassword'],
+            'new_password|New Password' => [$new_password, 'required|min(6)|max(255)'],
+            'confirm_new_password|Confirm New Password' => [$confirm_new_password, 'required|matches(new_password)'],
+        ]);
+
+        if($validator->passes()) {
+            $this->auth->user()->update([
+                'password' => Helper::hashPassword($new_password)
+            ]);
+
+            $this->flash('success', 'Your password has been updated!');
+            return $this->redirect('auth.account');
+        }
+
+        $errorMessages = "";
+
+        foreach($validator->errors()->all() as $error) {
+            $errorMessages .= "<li>$error</li>";
+        }
+
+        $errorCountMessage = count($validator->errors()->all()) > 1 ? "were some errors" : "was an error";
+        $errorCountMessage2 = count($validator->errors()->all()) > 1 ? "them" : "it";
+
+        $message = "There " . $errorCountMessage . " while trying to change your password: <ul><strong>" . $errorMessages . "</strong></ul>" . "Fix " . $errorCountMessage2 . " and try again.";
+
+        $this->flashNow('raw_error', $message);
+
+        return $this->render('auth/account', [
+            'errors' => $validator->errors(),
+        ]);
     }
 }

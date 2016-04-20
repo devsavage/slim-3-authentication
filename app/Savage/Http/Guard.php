@@ -16,8 +16,7 @@ class Guard extends CSRF
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
-        $route = $request->getAttribute('route');
-        $routeName = $route->getName();
+        $routeName = $request->getRequestTarget();
 
         // Validate POST, PUT, DELETE, PATCH requests
         if (!in_array($routeName, $this->excluded) && in_array($request->getMethod(), ['POST', 'PUT', 'DELETE', 'PATCH'])) {

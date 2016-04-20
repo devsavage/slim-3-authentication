@@ -2,40 +2,38 @@
 
 {% block content %}
 <div class="row">
-
-
-<div class="well">
-    <form action="{{ path_for('auth.register') }}" method="POST" class="form-horizontal">
-        <fieldset>
-        <legend>Register</legend>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="username">Username</label>
-            <div class="col-md-10">
-                <input class="form-control" type="text" name="username" placeholder="Username">
+    <div class="well">
+        <form action="{{ path_for('auth.register') }}" method="POST" class="form-horizontal">
+            <fieldset>
+            <legend>Register</legend>
+            <div class="form-group{% if errors.has('username') %} has-error{% endif %}">
+                <label class="col-md-2 control-label" for="username">Username</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" name="username" placeholder="Username" value="{{ data.username }}">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="email">E-Mail</label>
-            <div class="col-md-10">
-                <input class="form-control" type="text" name="email" placeholder="E-Mail">
+            <div class="form-group{% if errors.has('email') %} has-error{% endif %}">
+                <label class="col-md-2 control-label" for="email">E-Mail</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" name="email" placeholder="E-Mail" value="{{ data.email }}">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="password">Password</label>
-            <div class="col-md-10">
-                <input class="form-control" type="password" name="password" placeholder="Password">
+            <div class="form-group{% if errors.has('password') %} has-error{% endif %}">
+                <label class="col-md-2 control-label" for="password">Password</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="confirm_password">Confirm Password</label>
-            <div class="col-md-10">
-                <input class="form-control" type="password" name="confirm_password" placeholder="Confirm Password">
+            <div class="form-group{% if errors.has('confirm_password') %} has-error{% endif %}">
+                <label class="col-md-2 control-label" for="confirm_password">Confirm Password</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="password" name="confirm_password" placeholder="Confirm Password">
+                </div>
             </div>
-        </div>
-        {{ csrf.field | raw }}
-            <button class="btn btn-raised btn-primary" type="submit">Register</button>
-        </fieldset>
-    </form>
-</div>
+            {{ csrf.field | raw }}
+                <button class="btn btn-raised btn-primary" type="submit">Register</button>
+            </fieldset>
+        </form>
+    </div>
 </div>
 {% endblock %}

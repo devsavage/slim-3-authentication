@@ -2,10 +2,10 @@
 
 return [
     'settings' => [
+        'determineRouteBeforeAppMiddleware' => true,
         'baseUrl' => 'http://auth.app:8888/',
         'displayErrorDetails' => true,
         'viewTemplateDirectory' => '../resources/views',
-        'determineRouteBeforeAppMiddleware' => true,
         'auth' => [
             'session_key' => 'user_id'
         ],
