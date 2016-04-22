@@ -3,7 +3,7 @@
 namespace Savage\Http\Controllers;
 
 /**
- * Base Controller Class
+ * Base Controller class, all other controllers should extend this class.
  */
 class Controller
 {

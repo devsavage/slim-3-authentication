@@ -6,7 +6,7 @@ use Savage\Http\Auth\Models\User;
 use Savage\Utils\Helper;
 
 /**
- * AuthController handles all of our authentication system.
+ * AuthController handles all of our authentication routes.
  */
 
 class AuthController extends Controller
@@ -26,7 +26,7 @@ class AuthController extends Controller
         $auth = $this->auth->attemptLogin($this->param('identifier'), $this->param('password'));
 
         if(!$auth) {
-            $this->flash('warn', 'The credentials you entered were invalid.');
+            $this->flash('warn', 'The credentials you entered are invalid.');
             return $this->redirect('auth.login');
         }
 
@@ -95,11 +95,13 @@ class AuthController extends Controller
         return $this->redirect();
     }
 
-    public function getAccount() {
+    public function getAccount()
+    {
         return $this->render('auth/account');
     }
 
-    public function postProfile() {
+    public function postProfile()
+    {
         $validator = $this->validator();
 
         $email = $this->param('new_email');
@@ -135,7 +137,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function postChangePassword() {
+    public function postChangePassword()
+    {
         $validator = $this->validator();
 
         $current_password = $this->param('current_password');

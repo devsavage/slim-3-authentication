@@ -59,7 +59,8 @@ class Validator extends Violin
         return !(bool) User::where('email', $value)->count();
     }
 
-    public function validate_matchesCurrentPassword($value, $input, $args) {
+    public function validate_matchesCurrentPassword($value, $input, $args)
+    {
         $authed = $this->container->auth->check();
         $user = $authed ? $this->container->auth->user() : false;
 
