@@ -18,10 +18,15 @@ class AuthController extends Controller
 
     public function postLogin()
     {
+        if(!$this->param('identifier') || !$this->param('password')) {
+            $this->flash('error', 'Please enter your e-mail/username and password to login.');
+            return $this->redirect('auth.login');
+        }
+
         $auth = $this->auth->attemptLogin($this->param('identifier'), $this->param('password'));
 
         if(!$auth) {
-            $this->flash('error', 'The credentials you entered were invalid.');
+            $this->flash('warn', 'The credentials you entered were invalid.');
             return $this->redirect('auth.login');
         }
 
