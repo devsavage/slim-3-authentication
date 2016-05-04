@@ -3,7 +3,7 @@
 return [
     'settings' => [
         'determineRouteBeforeAppMiddleware' => true,
-        'baseUrl' => 'http://auth.app:8888/',
+        'baseUrl' => 'http://127.0.0.1:9999/',
         'displayErrorDetails' => true,
         'viewTemplateDirectory' => '../resources/views',
         'auth' => [
@@ -71,5 +71,32 @@ return [
         });
 
         return $gaurd;
-    }
+    },
+
+    'errorHandler' => function($container) {
+        return function($request, $response, $exception) use ($container) {
+            $response = $response->withStatus(500);
+            return $container->view->render($response, 'errors/500.twig');
+        };
+    },
+
+    'notFoundHandler' => function($container) {
+        return function($request, $response) use ($container) {
+            $response = $response->withStatus(404);
+            return $container->view->render($response, 'errors/404.twig', [
+                'request_uri' => urldecode($_SERVER['REQUEST_URI'])
+            ]);
+        };
+    },
+
+    'notAllowedHandler' => function($container) {
+        return function ($request, $response, $methods) use ($container) {
+            $response = $response->withStatus(405);
+            return $container->view->render($response, 'errors/405.twig', [
+                'request_uri' => $_SERVER['REQUEST_URI'],
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'methods' => implode(', ', $methods)
+            ]);
+        };
+    },
 ];

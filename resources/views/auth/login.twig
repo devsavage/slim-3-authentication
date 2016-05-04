@@ -1,27 +1,29 @@
 {% extends 'templates/default.twig' %}
 
 {% block content %}
-<div class="row">
-    <div class="well">
-        <form action="{{ path_for('auth.login') }}" method="POST" class="form-horizontal">
-            <fieldset>
-            <legend>Login</legend>
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="identifier">E-Mail or Username</label>
-                <div class="col-md-10">
-                    <input class="form-control" type="text" name="identifier" placeholder="E-Mail or Username">
+<div class="container">
+    <div class="col-md-12">
+        <div class="well">
+            <form action="{{ path_for('auth.login') }}" method="POST" class="form-horizontal">
+                <fieldset>
+                <legend>Login</legend>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="identifier">E-Mail or Username</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="identifier" placeholder="E-Mail or Username">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="password">Password</label>
-                <div class="col-md-10">
-                    <input class="form-control" type="password" name="password" placeholder="Password">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="password">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    </div>
                 </div>
-            </div>
-            {{ csrf.field | raw }}
-                <button class="btn btn-raised btn-primary" type="submit">Login</button>
-            </fieldset>
-        </form>
+                {{ csrf.field | raw }}
+                    <button class="btn btn-raised btn-primary" type="submit">Login</button>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
