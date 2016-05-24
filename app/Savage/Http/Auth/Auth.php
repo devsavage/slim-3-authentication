@@ -42,4 +42,23 @@ class Auth extends User
         // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
         Session::destroy('user_id');
     }
+
+    /**
+     * Permissions
+     */
+
+     public function permissions()
+     {
+         return $this->hasOne('\Savage\Http\Auth\Models\Permissions', 'user_id');
+     }
+
+     public function hasPermission($permission)
+     {
+         return (bool)$this->permissions->{$permission};
+     }
+
+     public function isAdmin()
+     {
+         return $this->hasPermission('is_admin');
+     }
 }

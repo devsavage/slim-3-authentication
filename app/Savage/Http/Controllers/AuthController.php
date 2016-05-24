@@ -2,7 +2,8 @@
 
 namespace Savage\Http\Controllers;
 
-use Savage\Http\Auth\Models\User;
+use Savage\Http\Auth\Auth;
+use Savage\Http\Auth\Models\Permissions;
 use Savage\Utils\Helper;
 
 /**
@@ -55,11 +56,13 @@ class AuthController extends Controller
         ]);
 
         if($validator->passes()) {
-            $user = User::create([
+            $user = Auth::create([
                 'username' => $username,
                 'email' => $email,
                 'password' => Helper::hashPassword($password),
             ]);
+
+            $user->permissions()->create(Permissions::$defaults);
 
             $this->flash('success', 'You have been registered!');
 

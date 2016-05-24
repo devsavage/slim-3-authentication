@@ -6,6 +6,9 @@
         <h1>Home</h1>
         {% if auth.check %}
             <h3 class="welcome">Welcome, {{ auth.user.username }}!</h3>
+            {% if auth.user.isAdmin %}
+            <h4>You are an admin.</h4>
+            {% endif %}
         {% endif %}
     </div>
 </div>
