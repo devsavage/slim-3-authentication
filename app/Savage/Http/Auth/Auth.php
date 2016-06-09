@@ -54,7 +54,11 @@ class Auth extends User
 
      public function hasPermission($permission)
      {
-         return (bool)$this->permissions->{$permission};
+        if(!$this->permissions) {
+            return false;
+        }
+        
+        return (bool)$this->permissions->{$permission};
      }
 
      public function isAdmin()
