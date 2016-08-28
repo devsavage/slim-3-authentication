@@ -11,14 +11,4 @@ class HomeController extends Controller
     {
         return $this->render('home');
     }
-
-    public function getTest()
-    {
-        $this->mail()->send('/email/test.twig', ['abc' => 123], function($message) {
-            $message->to('test@example.com');
-            $message->subject('Test Message');
-        });
-
-        return "Tested";
-    }
 }
