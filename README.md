@@ -1,5 +1,7 @@
 # Slim 3 Authentication
-Coming Soon...  
+If you are going to use this in a production environment, you will want to turn off some of the debug settings.  
+
+I will post more about where the debug settings are in the wiki.  
 
 A fully featured Slim 3 authentication system (probably the easiest to work with too!).  
 
