@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Http\Auth\Models;
 
 use \Illuminate\Database\Eloquent\Model as Eloquent;
@@ -14,11 +13,14 @@ class User extends Eloquent
         'email',
         'remember_token',
         'remember_identifier',
+        'active',
+        'active_hash',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
         'remember_identifier',
+        'active_hash',
     ];
 }

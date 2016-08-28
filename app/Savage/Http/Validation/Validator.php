@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Http\Validation;
 
 use Savage\Http\Auth\Models\User;

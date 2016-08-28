@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Http\Auth;
 
 use Savage\Http\Auth\Models\User;
@@ -18,23 +17,6 @@ class Auth extends User
     {
         // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
         return User::find(Session::get('user_id'));
-    }
-
-    public function attemptLogin($identifier, $password)
-    {
-        $user = User::where('email', $identifier)->orWhere('username', $identifier)->first();
-
-        if(!$user) {
-            return false;
-        }
-
-        if(Helper::verifyPassword($password, $user->password)) {
-            // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
-            Session::set('user_id', $user->id);
-            return true;
-        }
-
-        return false;
     }
 
     public function logout()
@@ -57,7 +39,7 @@ class Auth extends User
         if(!$this->permissions) {
             return false;
         }
-        
+
         return (bool)$this->permissions->{$permission};
      }
 

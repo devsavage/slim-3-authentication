@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Http\Middleware;
 
 use Interop\Container\ContainerInterface;

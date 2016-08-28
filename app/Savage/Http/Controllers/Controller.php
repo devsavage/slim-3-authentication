@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Http\Controllers;
 
 /**
@@ -61,5 +60,15 @@ class Controller
     public function param($param)
     {
         return $this->request->getParam($param);
+    }
+
+    public function mail()
+    {
+        return $this->container->mail;
+    }
+
+    public function hash()
+    {
+        return new \Savage\Utils\Hash();
     }
 }

@@ -3,7 +3,7 @@
 return [
     'settings' => [
         'determineRouteBeforeAppMiddleware' => true,
-        'baseUrl' => 'http://127.0.0.1:9999/',
+        'baseUrl' => 'http://127.0.0.1/',
         'displayErrorDetails' => true,
         'viewTemplateDirectory' => '../resources/views',
         'auth' => [
@@ -29,6 +29,12 @@ return [
         $capsule->setAsGlobal();
 
         return $capsule;
+    },
+
+    'twig' => function($container) {
+        $twig = new \Twig_Environment(new \Twig_Loader_Filesystem(__DIR__ . '/../resources/views'));
+
+        return $twig;
     },
 
     'view' => function($container) {
@@ -76,7 +82,9 @@ return [
     'errorHandler' => function($container) {
         return function($request, $response, $exception) use ($container) {
             $response = $response->withStatus(500);
-            return $container->view->render($response, 'errors/500.twig');
+            return $container->view->render($response, 'errors/500.twig', [
+                'error' => $exception->getMessage(),
+            ]);
         };
     },
 
@@ -99,4 +107,38 @@ return [
             ]);
         };
     },
+
+    'config' => [
+        'mail' => [
+            'type' => 'smtp',
+            'host' => 'mailtrap.io',
+            'port' => '2525',
+            'username' => '',
+            'password' => '',
+            'auth' => true,
+            'TLS' => false,
+            'from' => [
+                'name' => 'Admin',
+                'email' => 'testing@example.com',
+            ]
+        ],
+    ],
+
+    'mail' => function($container) {
+        $mailer = new PHPMailer();
+
+        $mailer->isSMTP();
+        $mailer->Host = $container['config']['mail']['host'];
+        $mailer->SMTPAuth = $container['config']['mail']['auth'];
+        $mailer->SMTPSecure = $container['config']['mail']['TLS'];
+        $mailer->Port = $container['config']['mail']['port'];
+        $mailer->Username = $container['config']['mail']['username'];
+        $mailer->Password = $container['config']['mail']['password'];
+        $mailer->FromName = $container['config']['mail']['from']['name'];
+        $mailer->From = $container['config']['mail']['from']['email'];
+
+        $mailer->isHTML(true);
+
+        return new \Savage\Mail\Mailer($mailer, $container);
+    }
 ];

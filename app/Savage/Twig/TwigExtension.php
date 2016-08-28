@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Twig;
 
 class TwigExtension extends \Twig_Extension

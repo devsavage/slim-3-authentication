@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Http;
 
 use Slim\App as Slim;

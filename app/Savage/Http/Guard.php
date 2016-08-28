@@ -1,5 +1,4 @@
 <?php
-
 namespace Savage\Http;
 
 use Slim\Csrf\Guard as CSRF;
@@ -7,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Gaurd extends Slim\Csrf\Gaurd to add the ability to exclude routes from CSRF protection. 
+ * Gaurd extends Slim\Csrf\Gaurd to add the ability to exclude routes from CSRF protection.
  */
 
 class Guard extends CSRF

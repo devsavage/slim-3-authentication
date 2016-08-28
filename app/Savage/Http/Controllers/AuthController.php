@@ -1,10 +1,11 @@
 <?php
-
 namespace Savage\Http\Controllers;
 
 use Savage\Http\Auth\Auth;
 use Savage\Http\Auth\Models\Permissions;
+use Savage\Http\Auth\Models\User;
 use Savage\Utils\Helper;
+use Savage\Utils\Session;
 
 /**
  * AuthController handles all of our authentication routes.
@@ -19,19 +20,29 @@ class AuthController extends Controller
 
     public function postLogin()
     {
-        if(!$this->param('identifier') || !$this->param('password')) {
+        $identifier = $this->param('identifier');
+        $password = $this->param('password');
+
+        if(!$identifier || !$password) {
             $this->flash('error', 'Please enter your e-mail/username and password to login.');
             return $this->redirect('auth.login');
         }
 
-        $auth = $this->auth->attemptLogin($this->param('identifier'), $this->param('password'));
+        $user = User::where('email', $identifier)->orWhere('username', $identifier)->first();
 
-        if(!$auth) {
-            $this->flash('warn', 'The credentials you entered are invalid.');
-            return $this->redirect('auth.login');
+        if($user && Helper::verifyPassword($password, $user->password)) {
+            if(!$user->active) {
+                $this->flash('error', 'Your account has not been activated, yet. Plese check your e-mail for the activation link.');
+                return $this->redirect('auth.login');
+            }
+
+            Session::set($this->container['settings']['auth']['session_key'], $user->id);
+
+            return $this->redirect();
         }
 
-        return $this->redirect();
+        $this->flash('warn', 'The credentials you entered are invalid.');
+        return $this->redirect('auth.login');
     }
 
     public function getRegister()
@@ -56,19 +67,28 @@ class AuthController extends Controller
         ]);
 
         if($validator->passes()) {
+            $identifier = $this->hash()->make(128);
             $user = Auth::create([
                 'username' => $username,
                 'email' => $email,
                 'password' => Helper::hashPassword($password),
+                'active' => false,
+                'active_hash' => $this->hash()->hash($identifier),
             ]);
 
             $user->permissions()->create(Permissions::$defaults);
 
-            $this->flash('success', 'You have been registered!');
 
-            $this->auth->attemptLogin($user->email, $this->param('password'));
+            $this->mail()->send('/email/auth/activate.twig', ['identifier' => $identifier, 'user' => $user], function($message) use ($user) {
+                $message->to($user->email);
+                $message->subject('example.com Account Activation');
+            });
 
-            return $this->redirect();
+            $this->flash('success', 'Your account has been created, but you will need to activate it first. Follow the instructions sent to your e-mail to activate your account.');
+
+            //$this->auth->attemptLogin($user->email, $this->param('password'));
+
+            return $this->redirect('auth.login');
         }
 
         $errorMessages = "";

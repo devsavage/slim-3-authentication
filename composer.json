@@ -13,6 +13,7 @@
 		"slim/flash": "^0.1.0",
 		"slim/csrf": "^0.6.0",
 		"alexgarrett/violin": "^2.2",
-		"ircmaxell/random-lib": "^1.1"
+		"ircmaxell/random-lib": "^1.1",
+		"phpmailer/phpmailer": "^5.2"
     }
 }
