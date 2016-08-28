@@ -1,7 +1,6 @@
 <?php
 
 $app->route(['GET'], '/', \Savage\Http\Controllers\HomeController::class)->setName('home');
-$app->route(['GET'], '/test', \Savage\Http\Controllers\HomeController::class, 'test')->setName('test');
 
 $app->group('/auth', function() {
     $this->route(['GET', 'POST'], '/register', \Savage\Http\Controllers\AuthController::class, 'register')->setName('auth.register');
