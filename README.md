@@ -7,7 +7,7 @@ A fully featured Slim 3 authentication system (probably the easiest to work with
 
 This is the full authentication system from my DemoApp repo and it includes many improvements and fixes.  
 
-This work is licensed under a MIT License, see [LICENSE](LICENSE)file.  
+This work is licensed under a MIT License, see [LICENSE](LICENSE) file.  
 
 Feel free to use this authentication system with your project!  
 
