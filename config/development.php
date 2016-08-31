@@ -3,18 +3,18 @@
 return [
     'settings' => [
         'determineRouteBeforeAppMiddleware' => true,
-        'baseUrl' => 'http://127.0.0.1/',
+        'baseUrl' => getenv('APP_URL'),
         'displayErrorDetails' => true,
         'viewTemplateDirectory' => '../resources/views',
         'auth' => [
             'session_key' => 'user_id'
         ],
         'db' => [
-            'driver' => 'mysql',
-            'host' => '127.0.0.1',
-            'username' => 'root',
-            'password' => '',
-            'database' => 'auth',
+            'driver' => getenv('DB_CONNECTION'),
+            'host' => getenv('DB_HOST'),
+            'username' => getenv('DB_USERNAME'),
+            'password' => getenv('DB_PASSWORD'),
+            'database' => getenv('DB_DATABASE'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci'
         ],
@@ -111,15 +111,15 @@ return [
     'config' => [
         'mail' => [
             'type' => 'smtp',
-            'host' => 'mailtrap.io',
-            'port' => '2525',
-            'username' => '',
-            'password' => '',
+            'host' => getenv('MAILTRAP_HOST'),
+            'port' => getenv('MAILTRAP_PORT'),
+            'username' => getenv('MAILTRAP_USERNAME'),
+            'password' => getenv('MAILTRAP_PASSWORD'),
             'auth' => true,
             'TLS' => false,
             'from' => [
                 'name' => 'Admin',
-                'email' => 'testing@example.com',
+                'email' => getenv('MAILTRAP_FROM'),
             ]
         ],
     ],

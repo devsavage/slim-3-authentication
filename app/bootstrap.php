@@ -8,8 +8,11 @@ define('INC_ROOT', dirname(__DIR__));
 
 require_once INC_ROOT . '/vendor/autoload.php';
 
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
+$dotenv->load();
+
 $app = new App(new Container(
-    include INC_ROOT . '/config/development.php'
+    include INC_ROOT . '/config/' . getenv('APP_ENV') . '.php'
 ));
 
 $container = $app->getContainer();
