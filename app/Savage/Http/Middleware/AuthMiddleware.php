@@ -2,7 +2,7 @@
 namespace Savage\Http\Middleware;
 
 /**
- * AuthMiddleware is used for routes that require a user to be logged in.
+ * AuthMiddleware is used for routes that require a user to be logged in and to check if a user has an active account.
  */
 
 class AuthMiddleware extends Middleware

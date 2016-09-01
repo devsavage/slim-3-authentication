@@ -111,15 +111,15 @@ return [
     'config' => [
         'mail' => [
             'type' => 'smtp',
-            'host' => getenv('MAILTRAP_HOST'),
-            'port' => getenv('MAILTRAP_PORT'),
-            'username' => getenv('MAILTRAP_USERNAME'),
-            'password' => getenv('MAILTRAP_PASSWORD'),
+            'host' => getenv('MAIL_HOST'),
+            'port' => getenv('MAIL_PORT'),
+            'username' => getenv('MAIL_USERNAME'),
+            'password' => getenv('MAIL_PASSWORD'),
             'auth' => true,
             'TLS' => false,
             'from' => [
                 'name' => 'Admin',
-                'email' => getenv('MAILTRAP_FROM'),
+                'email' => getenv('MAIL_FROM'),
             ]
         ],
     ],

@@ -86,8 +86,6 @@ class AuthController extends Controller
 
             $this->flash('success', 'Your account has been created, but you will need to activate it first. Follow the instructions sent to your e-mail to activate your account.');
 
-            //$this->auth->attemptLogin($user->email, $this->param('password'));
-
             return $this->redirect('auth.login');
         }
 

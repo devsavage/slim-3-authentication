@@ -30,11 +30,9 @@ class Controller
 
     public function redirect($path = null)
     {
-        if($path) {
-            return $this->response->withRedirect($this->router()->pathFor($path));
-        }
+        $path = $path != null ? $path : 'home';
 
-        return $this->response->withRedirect($this->router()->pathFor('home'));
+        return $this->response->withRedirect($this->router()->pathFor($path));
     }
 
     public function flash($type, $message)

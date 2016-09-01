@@ -9,20 +9,17 @@ class Auth extends User
 {
     public function check()
     {
-        // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
-        return Session::exists('user_id');
+        return Session::exists(getenv('APP_AUTH_ID'));
     }
 
     public function user()
     {
-        // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
-        return User::find(Session::get('user_id'));
+        return User::find(Session::get(getenv('APP_AUTH_ID')));
     }
 
     public function logout()
     {
-        // Set this to the same as: $this->container['settings']['auth']['session_key'], we cannot use our container in this class due to Eloquent.
-        Session::destroy('user_id');
+        Session::destroy(getenv('APP_AUTH_ID'));
     }
 
     /**
