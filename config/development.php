@@ -62,10 +62,10 @@ return [
     },
 
     'csrf' => function($container) {
-        $gaurd = new \Savage\Http\Guard;
-        $gaurd->setExcludedRoutes($container['settings']['excludedRoutes']);
+        $guard = new \Savage\Http\Guard;
+        $guard->setExcludedRoutes($container['settings']['excludedRoutes']);
 
-        $gaurd->setFailureCallable(function ($request, $response, $next) use ($container){
+        $guard->setFailureCallable(function ($request, $response, $next) use ($container){
             $request = $request->withAttribute("csrf_status", false);
             if ($request->getAttribute('csrf_status') === false) {
                 $container->flash->addMessage('error', 'CSRF verification failed. Terminating your request.');
@@ -76,7 +76,7 @@ return [
             }
         });
 
-        return $gaurd;
+        return $guard;
     },
 
     'errorHandler' => function($container) {
