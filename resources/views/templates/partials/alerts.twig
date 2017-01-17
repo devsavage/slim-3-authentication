@@ -1,29 +1,71 @@
 {% if flash.getMessage('success').0 %}
-    <div class="alert alert-success" role="alert">
-        <strong><i class="fa fa-check"></i> Success:</strong> {{ flash.getMessage('success').0 }}
-    </div>
+<div class="alert alert-success alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">Success!</h4>
+    <p>
+        {{ flash.getMessage('success').0 }}
+    </p>
+</div>
 {% endif %}
 
 {% if flash.getMessage('info').0 %}
-    <div class="alert alert-info" role="alert">
-        <strong><i class="fa fa-info"></i> Info:</strong> {{ flash.getMessage('info').0 }}
-    </div>
+<div class="alert alert-info alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">Heads Up!</h4>
+    <p>
+        {{ flash.getMessage('info').0 }}
+    </p>
+</div>
 {% endif %}
 
-{% if flash.getMessage('warn').0 %}
-    <div class="alert alert-warning" role="alert">
-        <strong><i class="fa fa-exclamation-triangle"></i> Warning:</strong> {{ flash.getMessage('warn').0 }}
-    </div>
+{% if flash.getMessage('warning').0 %}
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">Warning!</h4>
+    <p>
+        {{ flash.getMessage('warning').0 }}
+    </p>
+</div>
 {% endif %}
 
 {% if flash.getMessage('error').0 %}
-    <div class="alert alert-danger" role="alert">
-        <strong><i class="fa fa-ban"></i> Error:</strong> {{ flash.getMessage('error').0 }}
-    </div>
+<div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">Error!</h4>
+    <p>
+        {{ flash.getMessage('error').0 }}
+    </p>
+</div>
 {% endif %}
 
 {% if flash.getMessage('raw_error').0 %}
-    <div class="alert alert-danger" role="alert">
-        <strong><i class="fa fa-ban"></i> Error:</strong> {{ flash.getMessage('raw_error').0|raw }}
-    </div>
+<div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">Error!</h4>
+    <p>
+        {{ flash.getMessage('raw_error').0|raw }}
+    </p>
+</div>
+{% endif %}
+
+{% if flash.getMessage('raw_warning').0 %}
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="alert-heading">Warning!</h4>
+    <p>
+        {{ flash.getMessage('warning').0|raw }}
+    </p>
+</div>
 {% endif %}

@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/bootstrap/app.php';
+
+$kernel = new App\Console\Kernel;
+
+$console = new App\Console\Console($app);
+$console->boot($kernel);
+
+$console->run();

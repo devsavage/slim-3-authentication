@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        {% block styles %}{% endblock %}
+
+        <!--[if lt IE 9]>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+        <![endif]-->
+
+        <title>Slim 3 Authentication v2</title>
+    </head>
+    <body>
+        {% include 'templates/partials/nav.twig'%}
+
+        <div class="container">
+            <div class="row">
+                {% include 'templates/partials/alerts.twig'%}
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+        
+        <script src="{{ asset('js/app.min.js') }}"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
