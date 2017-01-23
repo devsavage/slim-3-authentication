@@ -9,6 +9,7 @@ class Kernel
 
     protected $defaultCommands = [
         \App\Console\Commands\Generator\ControllerGeneratorCommand::class,
+        \App\Console\Commands\Generator\MiddlewareGeneratorCommand::class,
     ];
 
     public function getCommands()

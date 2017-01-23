@@ -11,16 +11,26 @@
         </li>
       </ul>
       <ul class="nav navbar-nav">
+        {% if auth.check %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="http://example.com" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Account
+            {{ auth.user.username }}
           </a>
           <div class="dropdown-menu" aria-labelledby="accountMenu">
             <a class="dropdown-item" href="#">Settings</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Logout</a>
+            <a class="dropdown-item" href="{{ path_for('auth.logout') }}">Logout</a>
           </div>
         </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path_for('auth.login') }}">Login</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path_for('auth.register') }}">Register</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>

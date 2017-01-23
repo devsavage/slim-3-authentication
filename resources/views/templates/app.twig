@@ -19,7 +19,9 @@
 
         <div class="container">
             <div class="row">
-                {% include 'templates/partials/alerts.twig'%}
+                <div class="col-12">
+                    {% include 'templates/partials/alerts.twig'%}
+                </div>
             </div>
             {% block content %}{% endblock %}
         </div>

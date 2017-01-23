@@ -1,0 +1,57 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <div class="col-8 offset-2">
+        <div class="card">
+            <h3 class="card-header text-center">Register</h3>
+            <div class="card-block">
+                <form action="{{ path_for('auth.register') }}" method="post">
+                    <div class="form-group row{% if errors.has('username') %} has-danger{% endif %}">
+                        <label for="username" class="col-3 col-form-label">Username</label>
+                        <div class="col-9">
+                            <input id="username" class="form-control{% if errors.has('username') %} form-control-danger{% endif %}" type="text" name="username" value="{{ old.username }}">
+                            {% if errors.has('username') %}
+                            <div class="form-control-feedback">{{ errors.first('username') }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group row{% if errors.has('email') %} has-danger{% endif %}">
+                        <label for="email" class="col-3 col-form-label">E-Mail</label>
+                        <div class="col-9">
+                            <input id="email" class="form-control{% if errors.has('email') %} has-danger{% endif %}" type="text" name="email" value="{{ old.email }}">
+                            {% if errors.has('email') %}
+                            <div class="form-control-feedback">{{ errors.first('email') }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group row{% if errors.has('password') %} has-danger{% endif %}">
+                        <label for="password" class="col-3 col-form-label">Password</label>
+                        <div class="col-9">
+                            <input id="password" class="form-control{% if errors.has('password') %} has-danger{% endif %}" type="password" name="password">
+                            {% if errors.has('password') %}
+                            <div class="form-control-feedback">{{ errors.first('password') }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group row{% if errors.has('confirm_password') %} has-danger{% endif %}">
+                        <label for="confirm_password" class="col-3 col-form-label">Confirm Password</label>
+                        <div class="col-9">
+                            <input id="confirm_password" class="form-control{% if errors.has('confirm_password') %} has-danger{% endif %}" type="password" name="confirm_password">
+                            {% if errors.has('confirm_password') %}
+                            <div class="form-control-feedback">{{ errors.first('confirm_password') }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {{ csrf.field | raw }}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-primary btn-md">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted text-center">
+                Already have an account? <a href="{{ path_for('auth.login') }}">Login</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -4,6 +4,8 @@ session_start();
 use Dotenv\Dotenv;
 use Noodlehaus\Config;
 use App\App;
+use App\Http\Middleware\CsrfMiddleware;
+use App\Http\Middleware\OldInputMiddleware;
 use Slim\Container;
 
 define('INC_ROOT', __DIR__);
@@ -24,5 +26,12 @@ $container = $app->getContainer();
 $container['config'] = function($c) {
     return new Config(INC_ROOT . '/../config');
 };
+
+$app->add(CsrfMiddleware::class);
+$app->add(OldInputMiddleware::class);
+
+$app->add($container->csrf);
+
+$container['db']->bootEloquent();
 
 require INC_ROOT . '/../routes/web.php';

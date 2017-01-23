@@ -24,6 +24,21 @@ class Controller
         }
     }
 
+    public function param($name)
+    {
+        return $this->request->getParam($name);
+    }
+
+    public function flash($type, $message)
+    {
+        return $this->flash->addMessage($type, $message);
+    }
+
+    public function flashNow($type, $message)
+    {
+        return $this->flash->addMessageNow($type, $message);
+    }
+
     public function render($name, array $args = [])
     {
         return $this->container->view->render($this->response, $name . '.twig', $args);
@@ -34,5 +49,15 @@ class Controller
         $path = $path != null ? $path : 'home';
 
         return $this->response->withRedirect($this->router()->pathFor($path, $args, $params));
+    }
+
+    public function validator()
+    {
+        return new \App\Validation\Validator($this->container);
+    }
+
+    protected function router()
+    {
+        return $this->container['router'];
     }
 }
