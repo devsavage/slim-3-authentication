@@ -18,6 +18,15 @@ return [
         return new \App\Lib\Flash;
     },
 
+    'twig' => function($c) {
+        $twig = new \Twig_Environment(new \Twig_Loader_Filesystem($c['settings']['viewTemplatesDirectory']));
+
+        // We need to load this again to use our functions with our mailing system.
+        $twig->addExtension(new \App\Twig\TwigExtension);
+
+        return $twig;
+    },
+
     'view' => function($c) {
         $view = new \Slim\Views\Twig($c['settings']['viewTemplatesDirectory'], [
             'debug' => getenv('APP_ENV') === "production" ? false : true
@@ -60,5 +69,23 @@ return [
         $capsule->addConnection($c['config']->get('database'), 'default');
 
         return $capsule;
+    },
+
+    'mail' => function($c) {
+        $mailer = new \PHPMailer;
+
+        $mailer->isSMTP();
+        $mailer->Host = $c['config']->get('mail.host');
+        $mailer->Port = $c['config']->get('mail.port');
+        $mailer->Username = $c['config']->get('mail.username');
+        $mailer->Password = $c['config']->get('mail.password');
+        $mailer->SMTPAuth = true;
+        $mailer->SMTPSecure = false;
+        $mailer->FromName = $c['config']->get('mail.from.name');
+        $mailer->From = $c['config']->get('mail.from');
+
+        $mailer->isHTML(true);
+
+        return new \App\Mail\Mailer($mailer, $c);
     },
 ];

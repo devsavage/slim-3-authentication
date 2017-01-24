@@ -37,6 +37,12 @@ class RegisterController extends Controller
             ]);
 
             $this->flash('info', "Your account has been created but you will need to activate it. Please check your e-mail for instructions.");
+
+            $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {
+                $message->to($user->email);
+                $message->subject($this->config->get('lang.mail.activation.subject'));
+            });
+
             return $this->redirect('auth.login');
         }
 
