@@ -24,6 +24,11 @@ class Controller
         }
     }
 
+    public function config($key)
+    {
+        return $this->config->get($key);
+    }
+
     public function param($name)
     {
         return $this->request->getParam($name);

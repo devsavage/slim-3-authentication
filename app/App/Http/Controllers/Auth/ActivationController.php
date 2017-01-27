@@ -18,7 +18,7 @@ class ActivationController extends Controller
         }
 
         if($user->active) {
-            $this->flash("info", "Your account has already been activated.");
+            $this->flash("info", $this->config('lang.alerts.account.already_activated'));
             
             $user->update([
                 'active_hash' => null
@@ -33,7 +33,7 @@ class ActivationController extends Controller
                 'active_hash' => null,
             ]);
 
-            $this->flash("success", "Your account has been activated! You can now login.");
+            $this->flash("success", $this->config('lang.alerts.account.activated'));
 
             return $this->redirect('auth.login');
         }
