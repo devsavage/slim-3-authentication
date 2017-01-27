@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Database\User;
 use App\Http\Controllers\Controller;
+use App\Lib\Session;
 
 class RegisterController extends Controller
 {
@@ -17,6 +18,15 @@ class RegisterController extends Controller
         $email = $this->param('email');
         $password = $this->param('password');
         $confirm_password = $this->param('confirm_password');
+
+        if(env('APP_ACTIVATION_METHOD') === 'recaptcha') {
+            $recaptcha = $this->param('g-recaptcha-response');
+
+            if(!$this->recaptcha->verify($recaptcha)->isSuccess()) {
+                $this->flash('warning', 'Please verify you are not a robot by completing the reCAPTCHA.');
+                return $this->redirect('auth.register');
+            }
+        }
 
         $validator = $this->validator()->validate([
             'username|Username' => [$username, 'required|min(3)|alnumDash'],
@@ -36,12 +46,20 @@ class RegisterController extends Controller
                 'active' => false,
             ]);
 
-            $this->flash('info', "Your account has been created but you will need to activate it. Please check your e-mail for instructions.");
+            if(env('APP_ACTIVATION_METHOD') === 'mail') {
+                $this->flash('info', "Your account has been created but you will need to activate it. Please check your e-mail for instructions.");
+                $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {
+                    $message->to($user->email);
+                    $message->subject($this->config->get('lang.mail.activation.subject'));
+                });
+            } else {
+                $user->update([
+                    'active' => true,
+                    'active_hash' => null,
+                ]);
 
-            $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {
-                $message->to($user->email);
-                $message->subject($this->config->get('lang.mail.activation.subject'));
-            });
+                $this->flash('success', 'Your account has been created!');
+            }
 
             return $this->redirect('auth.login');
         }

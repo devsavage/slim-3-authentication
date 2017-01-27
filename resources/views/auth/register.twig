@@ -42,6 +42,14 @@
                             {% endif %}
                         </div>
                     </div>
+                    {% if getenv('APP_ACTIVATION_METHOD') == 'recaptcha' %}
+                    <div class="form-group row">
+                        <label for="g-recaptcha" class="col-3 col-form-label">Robot?</label>
+                        <div class="col-9">
+                            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="{{ getenv('RECAPTCHA_PUBLIC') }}"></div>
+                        </div>
+                    </div>
+                    {% endif %}
                     {{ csrf.field | raw }}
                     <div class="text-center">
                         <button type="submit" class="btn btn-outline-primary btn-md">Register</button>
@@ -54,4 +62,9 @@
         </div>
     </div>
 
+{% endblock %}
+{% block scripts %}
+{% if getenv('APP_ACTIVATION_METHOD') == 'recaptcha' %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endif %}
 {% endblock %}

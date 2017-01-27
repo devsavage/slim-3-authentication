@@ -19,6 +19,7 @@
 		"phpmailer/phpmailer": "^5.2",
 		"vlucas/phpdotenv": "^2.3",
         "hassankhan/config": "^0.10.0",
-		"symfony/console": "^3.1"
+		"symfony/console": "^3.1",
+		"google/recaptcha": "~1.1"
     }
 }
