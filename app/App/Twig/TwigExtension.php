@@ -14,17 +14,17 @@ class TwigExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('asset', [$this, 'asset']),
-            new \Twig_SimpleFunction('env', [$this, 'env']),
+            new \Twig_SimpleFunction('getenv', [$this, 'getenv']),
         ];
     }
 
     public function asset($name)
     {
-        return getenv('APP_URL') . '/' . $name;
+        return env('APP_URL') . '/' . $name;
     }
 
-    public function env($what)
+    public function getenv($key, $default = null)
     {
-        return getenv($what);
+        return env($key, $default);
     }
 }

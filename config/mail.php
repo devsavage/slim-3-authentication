@@ -1,11 +1,11 @@
 <?php
 return [
     'mail' => [
-        'host' => getenv('MAIL_HOST'),
-        'port' => getenv('MAIL_PORT'),
-        'username' => getenv('MAIL_USERNAME'),
-        'password' => getenv('MAIL_PASSWORD'),
-        'from.name' => getenv('MAIL_FROM_NAME'),
-        'from' => getenv('MAIL_FROM'),
+        'host' => env('MAIL_HOST'),
+        'port' => env('MAIL_PORT'),
+        'username' => env('MAIL_USERNAME'),
+        'password' => env('MAIL_PASSWORD'),
+        'from.name' => env('MAIL_FROM_NAME', 'noreply'),
+        'from' => env('MAIL_FROM', 'noreply@example.com'),
     ]
 ];

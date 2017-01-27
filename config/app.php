@@ -2,7 +2,7 @@
 return [
     'app' => [
         'activation' => [
-            'method' => 'mail',
+            'method' => env('APP_ACTIVATION_METHOD', 'mail'),
         ]
     ]
 ];

@@ -29,7 +29,7 @@ return [
 
     'view' => function($c) {
         $view = new \Slim\Views\Twig($c['settings']['viewTemplatesDirectory'], [
-            'debug' => getenv('APP_ENV') === "production" ? false : true
+            'debug' => env('APP_ENV', 'development') === "production" ? false : true
         ]);
 
         $view->getEnvironment()->addGlobal('auth', [

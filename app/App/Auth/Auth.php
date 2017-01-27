@@ -8,11 +8,11 @@ class Auth extends User
 {
     public function check()
     {
-        return Session::exists(getenv('APP_AUTH_ID'));
+        return Session::exists(env('APP_AUTH_ID', 'user_id'));
     }
 
     public function user()
     {
-        return User::find(Session::get(getenv('APP_AUTH_ID')));
+        return User::find(Session::get(env('APP_AUTH_ID', 'user_id')));
     }
 }

@@ -32,7 +32,7 @@ class LoginController extends Controller
                 $this->flash("raw_warning", "The account you are trying to access has not been activated. <a class='alert-link' href='#'>Resend activation link</a>");
                 return $this->redirect('auth.login');
             } else if($user && $this->hash->verifyPassword($password, $user->password)) {
-                Session::set(getenv('APP_AUTH_ID'), $user->id);
+                Session::set(env('APP_AUTH_ID', 'user_id'), $user->id);
                 return $this->redirect('home');
             }
         }

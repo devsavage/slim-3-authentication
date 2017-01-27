@@ -2,7 +2,10 @@
 	"autoload": {
 		"psr-4": {
 			"App\\": "app/App"
-		}
+		},
+        "files": [
+            "app/helpers.php"
+        ]
 	},
 
     "require": {

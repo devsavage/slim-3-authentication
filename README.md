@@ -11,7 +11,9 @@ My plans for this version are as follows:
     - reCAPTCHA means users will need to complete Google's "No CAPTCHA reCAPTCHA" when registering
 - I plan on trying to localize strings from alerts to message subjects using the config system.
 
-###### There will be more plans coming soon.  
+##### There will be more plans coming soon.  
+
+You will be able to view a demo soon at [https://demo.savagedev.io](https://demo.savagedev.io)
 
 
 This work is licensed under a MIT License.
