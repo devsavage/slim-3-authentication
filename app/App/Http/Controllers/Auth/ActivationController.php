@@ -14,7 +14,7 @@ class ActivationController extends Controller
         $user = User::where('active_hash', $identifier)->first();
 
         if(!$user) {
-            $this->flash('warning', $this->config('lang.account.invalid_active_hash'));
+            $this->flash('error', $this->config('lang.alerts.account.invalid_active_hash'));
             return $this->redirect('home');
         }
 
