@@ -16,13 +16,15 @@ return [
             ],
 
             'login' => [
-                'not_activated' => "The account you are trying to access has not been activated. <a class='alert-link' href='#'>Resend activation link</a>",
-                'error' => "Please enter your credentials to continue."
+                'invalid' => "You have supplied invalid credentials.",
+                'error' => "Please enter your credentials to continue.",
+                'resend_activation' => "Another activation e-mail has been sent. Please check your e-mail for instructions.",
             ],
 
             'account' => [
                 'already_activated' => "Your account has already been activated.",
                 'activatied' => "Your account has been activated! You can now login.",
+                'invalid_active_hash' => "The active hash you are trying to use has already expired or never existed.",
             ]
         ]
     ]

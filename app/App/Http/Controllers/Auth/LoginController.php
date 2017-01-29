@@ -26,13 +26,19 @@ class LoginController extends Controller
             $user = User::where('username', $username)->orWhere('email', $username)->first();
 
             if(!$user || !$this->hash->verifyPassword($password, $user->password)) {
-                $this->flash("error", "You have supplied invalid credentials.");
+                $this->flash("error", $this->config('lang.alerts.login.invalid'));
                 return $this->redirect('auth.login');
             } else if($user && !(bool)$user->active) {
-                $this->flash("raw_warning", $this->config('lang.alerts.login.not_activated'));
+                Session::set('temp_user_id', $user->id);
+                $this->flash("raw_warning", "The account you are trying to access has not been activated. <a class='alert-link' href='" . $this->router()->pathFor('auth.activate.resend') . "'>Resend activation link</a>");
                 return $this->redirect('auth.login');
             } else if($user && $this->hash->verifyPassword($password, $user->password)) {
                 Session::set(env('APP_AUTH_ID', 'user_id'), $user->id);
+                
+                if(Session::exists('temp_user_id')) {
+                    Session::destroy('temp_user_id');
+                }
+                
                 return $this->redirect('home');
             }
         }

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Database\User;
 use App\Http\Controllers\Controller;
+use App\Lib\Session;
 
 class ActivationController extends Controller
 {
@@ -13,7 +14,7 @@ class ActivationController extends Controller
         $user = User::where('active_hash', $identifier)->first();
 
         if(!$user) {
-            // We don't really need to flash a message here since there is not a valid account to activate.
+            $this->flash('warning', $this->config('lang.account.invalid_active_hash'));
             return $this->redirect('home');
         }
 
@@ -37,5 +38,34 @@ class ActivationController extends Controller
 
             return $this->redirect('auth.login');
         }
+    }
+
+    public function getResend()
+    {
+        if(Session::exists('temp_user_id')) {
+            $user = User::where('id', Session::get('temp_user_id'))->first();
+
+            if(!$user) {
+                return $this->redirect('home');
+            }
+
+            $activeHash = $this->hash->generate(128);
+
+            $user->update([
+                'active_hash' => $activeHash
+            ]);
+
+            $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {
+                $message->to($user->email);
+                $message->subject($this->config('lang.mail.activation.subject'));
+            });
+
+            Session::destroy('temp_user_id');
+
+            $this->flash('info', $this->config('lang.alerts.login.resend_activation'));
+            return $this->redirect('auth.login');
+        }
+
+        return $this->redirect('auth.login');
     }
 }

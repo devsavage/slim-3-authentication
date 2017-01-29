@@ -29,8 +29,8 @@ class RegisterController extends Controller
         }
 
         $validator = $this->validator()->validate([
-            'username|Username' => [$username, 'required|min(3)|alnumDash'],
-            'email|E-Mail' => [$email, 'required|email'],
+            'username|Username' => [$username, 'required|min(3)|alnumDash|uniqueUsername'],
+            'email|E-Mail' => [$email, 'required|email|uniqueEmail'],
             'password|Password' => [$password, 'required|min(6)'],
             'confirm_password|Confirm Password' => [$confirm_password, 'required|matches(password)'],
         ]);

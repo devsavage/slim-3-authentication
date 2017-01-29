@@ -8,6 +8,7 @@ $app->group('/auth', function() {
 });
 
 $app->route(['GET'], '/auth/activate', App\Http\Controllers\Auth\ActivationController::class)->setName('auth.activate');
+$app->route(['GET'], '/auth/activate/resend', App\Http\Controllers\Auth\ActivationController::class, 'resend')->setName('auth.activate.resend');
 
 $app->get('/auth/logout', function($request, $response, $args) {
     App\Lib\Session::destroy(getenv('APP_AUTH_ID'));
