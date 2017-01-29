@@ -26,7 +26,7 @@ class LoginController extends Controller
             $user = User::where('username', $username)->orWhere('email', $username)->first();
 
             if(!$user || !$this->hash->verifyPassword($password, $user->password)) {
-                $this->flash("error", $this->config('lang.alerts.login.invalid'));
+                $this->flash("error", $this->lang('alerts.login.invalid'));
                 return $this->redirect('auth.login');
             } else if($user && !(bool)$user->active) {
                 Session::set('temp_user_id', $user->id);
@@ -43,7 +43,7 @@ class LoginController extends Controller
             }
         }
 
-        $this->flashNow("error", $this->config('lang.alerts.login.error'));
+        $this->flashNow("error", $this->lang('alerts.login.error'));
         return $this->render('auth/login', [
             'errors' => $validator->errors(),
         ]);

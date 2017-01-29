@@ -29,6 +29,11 @@ class Controller
         return $this->config->get($key);
     }
 
+    public function lang($key)
+    {
+        return $this->config->get("lang." . $key);
+    }
+
     public function param($name)
     {
         return $this->request->getParam($name);

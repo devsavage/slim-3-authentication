@@ -34,11 +34,11 @@ class SettingsController extends Controller
                 'email' => $email,
             ]);
 
-            $this->flash('success', $this->config('lang.alerts.account.profile.updated'));
+            $this->flash('success', $this->lang('alerts.account.profile.updated'));
             return $this->redirect('auth.settings');
         }
 
-        $this->flashNow("error", $this->config('lang.alerts.account.profile.failed'));
+        $this->flashNow("error", $this->lang('alerts.account.profile.failed'));
         return $this->render('auth/account/settings', [
             'errors' => $validator->errors(),
         ]);
@@ -61,11 +61,11 @@ class SettingsController extends Controller
                 'password' => $this->hash->password($newPassword),
             ]);
 
-            $this->flash('success', $this->config('lang.alerts.account.password.updated'));
+            $this->flash('success', $this->lang('alerts.account.password.updated'));
             return $this->redirect('auth.settings');
         }
 
-        $this->flashNow("error", $this->config('lang.alerts.account.password.failed'));
+        $this->flashNow("error", $this->lang('alerts.account.password.failed'));
         return $this->render('auth/account/settings', [
             'errors' => $validator->errors(),
         ]);

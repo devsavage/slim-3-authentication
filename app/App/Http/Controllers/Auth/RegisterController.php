@@ -23,7 +23,7 @@ class RegisterController extends Controller
             $recaptcha = $this->param('g-recaptcha-response');
 
             if(!$this->recaptcha->verify($recaptcha)->isSuccess()) {
-                $this->flash('warning', $this->config('lang.alerts.registration.recaptcha_failed'));
+                $this->flash('warning', $this->lang('alerts.registration.recaptcha_failed'));
                 return $this->redirect('auth.register');
             }
         }
@@ -47,10 +47,10 @@ class RegisterController extends Controller
             ]);
 
             if(env('APP_ACTIVATION_METHOD') === 'mail') {
-                $this->flash('info', $this->config('lang.alerts.registration.requires_mail_activation'));
+                $this->flash('info', $this->lang('alerts.registration.requires_mail_activation'));
                 $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {
                     $message->to($user->email);
-                    $message->subject($this->config('lang.mail.activation.subject'));
+                    $message->subject($this->lang('mail.activation.subject'));
                 });
             } else {
                 $user->update([
@@ -58,13 +58,13 @@ class RegisterController extends Controller
                     'active_hash' => null,
                 ]);
 
-                $this->flash('success', $this->config('lang.alerts.registration.successful'));
+                $this->flash('success', $this->lang('alerts.registration.successful'));
             }
 
             return $this->redirect('auth.login');
         }
 
-        $this->flashNow('error', $this->config('lang.alerts.registration.error'));
+        $this->flashNow('error', $this->lang('alerts.registration.error'));
         return $this->render('auth/register', [
             'errors' => $validator->errors(),
         ]);

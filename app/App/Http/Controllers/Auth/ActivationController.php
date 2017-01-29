@@ -14,12 +14,12 @@ class ActivationController extends Controller
         $user = User::where('active_hash', $identifier)->first();
 
         if(!$user) {
-            $this->flash('error', $this->config('lang.alerts.account.invalid_active_hash'));
+            $this->flash('error', $this->lang('alerts.account.invalid_active_hash'));
             return $this->redirect('home');
         }
 
         if($user->active) {
-            $this->flash("info", $this->config('lang.alerts.account.already_activated'));
+            $this->flash("info", $this->lang('alerts.account.already_activated'));
             
             $user->update([
                 'active_hash' => null
@@ -34,7 +34,7 @@ class ActivationController extends Controller
                 'active_hash' => null,
             ]);
 
-            $this->flash("success", $this->config('lang.alerts.account.activated'));
+            $this->flash("success", $this->lang('alerts.account.activated'));
 
             return $this->redirect('auth.login');
         }
@@ -57,12 +57,12 @@ class ActivationController extends Controller
 
             $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {
                 $message->to($user->email);
-                $message->subject($this->config('lang.mail.activation.subject'));
+                $message->subject($this->lang('mail.activation.subject'));
             });
 
             Session::destroy('temp_user_id');
 
-            $this->flash('info', $this->config('lang.alerts.login.resend_activation'));
+            $this->flash('info', $this->lang('alerts.login.resend_activation'));
             return $this->redirect('auth.login');
         }
 
