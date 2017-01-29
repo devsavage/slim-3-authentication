@@ -28,9 +28,21 @@ class Validator extends Violin
                 'min' => 'Your password must be a minimum of {$0} characters.',
             ],
 
+            'new_password' => [
+                'min' => 'Your new password must be a minimum of {$0} characters.',
+            ],
+
             'confirm_password' => [
                 'matches' => 'Confirm Password must match Password.'
             ],
+
+            'confirm_new_password' => [
+                'matches' => 'Confirm New Password must match New Password.'
+            ],
+        ]);
+
+        $this->addRuleMessages([
+            'matchesCurrentPassword' => 'Your current password is incorrect.',
         ]);
     }
 
@@ -48,5 +60,14 @@ class Validator extends Violin
         }
 
         return !(bool) $user->count();
+    }
+
+    public function validate_matchesCurrentPassword($value, $input, $args)
+    {
+        if($this->auth->check() && $this->container->hash->verifyPassword($value, $this->auth->user()->password)) {
+            return true;
+        }
+
+        return false;
     }
 }

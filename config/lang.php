@@ -25,6 +25,16 @@ return [
                 'already_activated' => "Your account has already been activated.",
                 'activatied' => "Your account has been activated! You can now login.",
                 'invalid_active_hash' => "The active hash you are trying to use has already expired or never existed.",
+
+                'password' => [
+                    'updated' => "Your password has been changed.",
+                    'failed' => "Your password couldn't be changed at this time.",
+                ],
+
+                'profile' => [
+                    'updated' => "Your profile has been updated!",
+                    'failed' => "Your profile couldn't be updated at this time.",
+                ]
             ]
         ]
     ]
