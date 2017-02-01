@@ -25,8 +25,22 @@
                         </div>
                     </div>
 
-                    <a href="">Forgot password?</a>
-                    
+                    <div class="form-group row">
+                        <div class="col-8">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="remember">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="pull-right">
+                                 <a href="">Forgot password?</a>
+                            </div>
+                        </div>
+                    </div>
+
                     {{ csrf.field | raw }}
 
                     <div class="pull-right">

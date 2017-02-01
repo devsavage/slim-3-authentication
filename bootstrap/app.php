@@ -6,6 +6,7 @@ use Noodlehaus\Config;
 use App\App;
 use App\Http\Middleware\CsrfMiddleware;
 use App\Http\Middleware\OldInputMiddleware;
+use App\Http\Middleware\RememberMiddleware;
 use Slim\Container;
 
 define('INC_ROOT', __DIR__);
@@ -27,6 +28,7 @@ $container['config'] = function($c) {
     return new Config(INC_ROOT . '/../config');
 };
 
+$app->add(RememberMiddleware::class);
 $app->add(CsrfMiddleware::class);
 $app->add(OldInputMiddleware::class);
 

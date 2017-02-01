@@ -11,11 +11,16 @@ class ActivationController extends Controller
     {
         $identifier = $this->param('identifier');
 
+        // Make sure we check for an identifier first.
+        if(!$identifier) {
+            return $this->redirect('home');
+        }
+
         $user = User::where('active_hash', $identifier)->first();
 
         if(!$user) {
             $this->flash('error', $this->lang('alerts.account.invalid_active_hash'));
-            return $this->redirect('home');
+            return $this->redirect('auth.login');
         }
 
         if($user->active) {

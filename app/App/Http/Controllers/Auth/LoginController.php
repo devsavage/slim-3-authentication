@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
+
 use App\Database\User;
 use App\Http\Controllers\Controller;
+use App\Lib\Cookie;
 use App\Lib\Session;
 
 class LoginController extends Controller
@@ -16,6 +19,7 @@ class LoginController extends Controller
     {
         $username = $this->param('username');
         $password = $this->param('password');
+        $remember = $this->param('remember');
 
         $validator = $this->validator()->validate([
             'username|Username' => [$username, 'required'],
@@ -37,6 +41,18 @@ class LoginController extends Controller
                 
                 if(Session::exists('temp_user_id')) {
                     Session::destroy('temp_user_id');
+                }
+
+                if($remember === "on") {
+                    $rememberIdentifier = $this->hash->generate(128);
+                    $rememberToken = $this->hash->generate(128);
+
+                    $user->updateRememberCredentials($rememberIdentifier, $this->hash->hash($rememberToken));
+
+                    Cookie::set(env('APP_REMEMBER_ID', 'APP_REMEMBER_TOKEN'), 
+                        "{$rememberIdentifier}.{$rememberToken}",
+                        Carbon::now()->addWeek(2)->timestamp
+                    );
                 }
                 
                 return $this->redirect('home');

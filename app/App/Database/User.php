@@ -7,5 +7,18 @@ class User extends Model
 {
     protected $table = 'users';
 
-    protected $fillable = ['username', 'email', 'password', 'active', 'active_hash', 'remember_token', 'remember_token'];   
+    protected $fillable = ['username', 'email', 'password', 'active', 'active_hash', 'remember_identifier', 'remember_token']; 
+
+    public function updateRememberCredentials($identifier, $token)
+    {
+        $this->update([
+            'remember_identifier' => $identifier,
+            'remember_token' => $token,
+        ]);
+    }
+
+    public function removeRememberCredentials()
+    {
+        $this->updateRememberCredentials(null, null);
+    }
 }

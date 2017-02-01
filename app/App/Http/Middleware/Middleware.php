@@ -12,6 +12,16 @@ class Middleware
         $this->container = $container;
     }
 
+    public function flash($type, $message)
+    {
+        $this->container->flash->addMessage($type, $message);
+    }
+
+    public function lang($key)
+    {
+        return $this->container->config->get("lang." . $key);
+    }
+
     public function redirect($response, $path)
     {
         return $response->withRedirect($this->router()->pathFor($path));

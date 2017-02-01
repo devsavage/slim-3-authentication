@@ -8,6 +8,8 @@ return [
         ],
 
         'alerts' => [
+            'requires_auth' => "You must be signed in to access that page.",
+            
             'registration' => [
                 'successful' => "Your account has been created!",
                 'error' => "Please fix any errors with your registration and try again.",
