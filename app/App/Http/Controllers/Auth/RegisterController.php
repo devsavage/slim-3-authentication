@@ -19,11 +19,11 @@ class RegisterController extends Controller
         $password = $this->param('password');
         $confirm_password = $this->param('confirm_password');
 
-        if(env('APP_ACTIVATION_METHOD') === 'recaptcha') {
+        if($this->config('app.activation.method') === 'recaptcha') {
             $recaptcha = $this->param('g-recaptcha-response');
 
             if(!$this->recaptcha->verify($recaptcha)->isSuccess()) {
-                $this->flash('warning', $this->lang('alerts.registration.recaptcha_failed'));
+                $this->flash('warning', $this->lang('alerts.recaptcha_failed'));
                 return $this->redirect('auth.register');
             }
         }
@@ -46,7 +46,7 @@ class RegisterController extends Controller
                 'active' => false,
             ]);
 
-            if(env('APP_ACTIVATION_METHOD') === 'mail') {
+            if($this->config('app.activation.method') === 'mail') {
                 $this->flash('info', $this->lang('alerts.registration.requires_mail_activation'));
                 $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {
                     $message->to($user->email);

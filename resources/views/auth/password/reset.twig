@@ -1,0 +1,47 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="col-8 offset-2">
+            <div class="card card-outline-primary">
+                <div class="card-header text-center">
+                    Reset Your Password
+                </div>
+                <div class="card-block">
+                    <form action="{{ path_for('auth.password.reset') }}?identifier={{ identifier }}" method="POST">
+                        <div class="form-group row">
+                            <label for="email" class="col-4 col-form-label">E-Mail</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" name="email" value="{{ old.email }}">
+                                <small class="text-muted">Please verify your e-mail address.</small>
+                            </div>
+                        </div>
+                        <div class="form-group row{{ errors.has('new_password') ? ' has-danger' : '' }}">
+                            <label for="new_password" class="col-4 col-form-label">New Password</label>
+                            <div class="col-8">
+                                <input type="password" class="form-control{{ errors.has('new_password') ? ' form-control-danger' : '' }}" name="new_password" id="new_password" placeholder="Enter a new password">
+                                {% if errors.has('new_password') %}
+                                <div class="form-control-feedback">{{ errors.first('new_password') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row{{ errors.has('confirm_new_password') ? ' has-danger' : '' }}">
+                            <label for="confirm_new_password" class="col-4 col-form-label">Confirm New Password</label>
+                            <div class="col-8">
+                                <input type="password" class="form-control{{ errors.has('confirm_new_password') ? ' form-control-danger' : '' }}" name="confirm_new_password" id="confirm_new_password" placeholder="Confirm your new password">
+                                {% if errors.has('confirm_new_password') %}
+                                <div class="form-control-feedback">{{ errors.first('confirm_new_password') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <hr>
+                        <div class="form-group text-xs-center">
+                            <button type="submit" class="btn btn-block btn-outline-primary">Change Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

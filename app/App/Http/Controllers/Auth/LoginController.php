@@ -37,7 +37,7 @@ class LoginController extends Controller
                 $this->flash("raw_warning", "The account you are trying to access has not been activated. <a class='alert-link' href='" . $this->router()->pathFor('auth.activate.resend') . "'>Resend activation link</a>");
                 return $this->redirect('auth.login');
             } else if($user && $this->hash->verifyPassword($password, $user->password)) {
-                Session::set(env('APP_AUTH_ID', 'user_id'), $user->id);
+                Session::set($this->config('app.auth_id'), $user->id);
                 
                 if(Session::exists('temp_user_id')) {
                     Session::destroy('temp_user_id');
@@ -49,7 +49,7 @@ class LoginController extends Controller
 
                     $user->updateRememberCredentials($rememberIdentifier, $this->hash->hash($rememberToken));
 
-                    Cookie::set(env('APP_REMEMBER_ID', 'APP_REMEMBER_TOKEN'), 
+                    Cookie::set($this->config('app.remember_id'), 
                         "{$rememberIdentifier}.{$rememberToken}",
                         Carbon::now()->addWeek(2)->timestamp
                     );

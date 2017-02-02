@@ -17,9 +17,14 @@ class Middleware
         $this->container->flash->addMessage($type, $message);
     }
 
+    public function config($key)
+    {
+        return $this->container->config->get($key);
+    }
+
     public function lang($key)
     {
-        return $this->container->config->get("lang." . $key);
+        return $this->config("lang." . $key);
     }
 
     public function redirect($response, $path)
