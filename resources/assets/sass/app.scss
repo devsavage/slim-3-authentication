@@ -2,7 +2,11 @@
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
 
 @import "../../../node_modules/normalize.css/normalize.css";
+
+// Override bootstrap styling
+@import "components/bootstrap/custom";
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
 @import "../../../node_modules/font-awesome/scss/font-awesome.scss";
 
 @import "components/base";
