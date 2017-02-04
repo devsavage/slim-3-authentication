@@ -1,5 +1,5 @@
 {
-	"name": "monolog/slim-3-authentication",
+	"name": "devsavage/slim-3-authentication",
 	"type": "project",
     "description": "An authentication system using the Slim Framework.",
 	"version": "2.0.0",
