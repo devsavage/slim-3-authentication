@@ -21,4 +21,23 @@ class User extends Model
     {
         $this->updateRememberCredentials(null, null);
     }
+
+    public function userRole()
+    {
+        return $this->hasOne('\App\Database\UserRole', 'user_id');
+    }
+
+    public function hasRole($role)
+    {
+        if(!$this->userRole) {
+            return false;
+        }
+
+        return (bool)$this->userRole->{$role};
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('is_admin');
+    }
 }
