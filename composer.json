@@ -1,4 +1,19 @@
 {
+	"name": "monolog/slim-3-authentication",
+	"type": "project",
+    "description": "An authentication system using the Slim Framework.",
+	"version": "2.0.0",
+    "keywords": ["authentication","slim-3", "slim3", "slimframework"],
+	"homepage": "https://github.com/devsavage/slim-3-authentication",
+	"license": "MIT",
+    "authors": [
+        {
+            "name": "Savage",
+            "email": "savage@savagedev.io",
+            "homepage": "https://savagedev.io",
+            "role": "Developer"
+        }
+    ],
 	"autoload": {
 		"psr-4": {
 			"App\\": "app/App"
@@ -9,6 +24,7 @@
 	},
 
     "require": {
+		"php": ">=5.5.0",
         "slim/slim": "^3.0",
 		"illuminate/database": "^5.2",
 		"slim/twig-view": "^2.0",
