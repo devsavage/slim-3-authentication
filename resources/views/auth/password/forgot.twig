@@ -1,0 +1,37 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="col-6 offset-3">
+            <div class="card card-outline-primary">
+                <div class="card-header text-center">
+                    Forgot Your Password
+                </div>
+                <div class="card-block">
+                    <form action="{{ path_for('auth.password.forgot') }}" method="POST">
+                        <div class="form-group row">
+                            <label for="email" class="col-2 col-form-label">E-Mail</label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" name="email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="g-recaptcha" class="col-2 col-form-label">Robot?</label>
+                            <div class="col-10">
+                                <div class="g-recaptcha" id="g-recaptcha" data-sitekey="{{ getenv('RECAPTCHA_PUBLIC') }}"></div>
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <hr>
+                        <div class="form-group text-xs-center">
+                            <button type="submit" class="btn btn-block btn-outline-primary">Request Password Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}

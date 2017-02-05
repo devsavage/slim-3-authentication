@@ -1,0 +1,18 @@
+$brand-primary:             #4285F4 !default;
+$brand-success:             #34A853 !default;
+$brand-info:                #00A1F1 !default;
+$brand-warning:             #FBBC05 !default;
+$brand-danger:              #EA4335 !default;
+
+$state-success-bg: $brand-success;
+$state-success-text: #FFF;
+$state-info-bg: $brand-info;
+$state-info-text: #FFF;
+$state-warning-bg: $brand-warning;
+$state-warning-text: #FFF;
+$state-danger-bg: $brand-danger;
+$state-danger-text: #FFF;
+
+.btn {
+    cursor: pointer !important;
+}

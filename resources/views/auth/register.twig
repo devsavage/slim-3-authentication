@@ -1,41 +1,70 @@
-{% extends 'templates/default.twig' %}
+{% extends 'templates/app.twig' %}
 
 {% block content %}
-<div class="container">
-    <div class="col-md-12">
-        <div class="well">
-            <form action="{{ path_for('auth.register') }}" method="POST" class="form-horizontal">
-                <fieldset>
-                <legend>Register</legend>
-                <div class="form-group{% if errors.has('username') %} has-error{% endif %}">
-                    <label class="col-md-2 control-label" for="username">Username</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" name="username" placeholder="Username" value="{{ data.username }}">
+    <div class="col-8 offset-2">
+        <div class="card">
+            <h3 class="card-header text-center">Register</h3>
+            <div class="card-block">
+                <form action="{{ path_for('auth.register') }}" method="post">
+                    <div class="form-group row{{ errors.has('username') ? ' has-danger' : '' }}">
+                        <label for="username" class="col-3 col-form-label">Username</label>
+                        <div class="col-9">
+                            <input id="username" class="form-control{{ errors.has('username') ? ' form-control-danger' : '' }}" type="text" name="username" value="{{ old.username }}" autofocus>
+                            {% if errors.has('username') %}
+                            <div class="form-control-feedback">{{ errors.first('username') }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="form-group{% if errors.has('email') %} has-error{% endif %}">
-                    <label class="col-md-2 control-label" for="email">E-Mail</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" name="email" placeholder="E-Mail" value="{{ data.email }}">
+                    <div class="form-group row{{ errors.has('email') ? ' has-danger' : '' }}">
+                        <label for="email" class="col-3 col-form-label">E-Mail</label>
+                        <div class="col-9">
+                            <input id="email" class="form-control{{ errors.has('email') ? ' form-control-danger' : '' }}" type="text" name="email" value="{{ old.email }}">
+                            {% if errors.has('email') %}
+                            <div class="form-control-feedback">{{ errors.first('email') }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="form-group{% if errors.has('password') %} has-error{% endif %}">
-                    <label class="col-md-2 control-label" for="password">Password</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    <div class="form-group row{{ errors.has('password') ? ' has-danger' : '' }}">
+                        <label for="password" class="col-3 col-form-label">Password</label>
+                        <div class="col-9">
+                            <input id="password" class="form-control{{ errors.has('password') ? ' form-control-danger' : '' }}" type="password" name="password">
+                            {% if errors.has('password') %}
+                            <div class="form-control-feedback">{{ errors.first('password') }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="form-group{% if errors.has('confirm_password') %} has-error{% endif %}">
-                    <label class="col-md-2 control-label" for="confirm_password">Confirm Password</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="password" name="confirm_password" placeholder="Confirm Password">
+                    <div class="form-group row{{ errors.has('confirm_password') ? ' has-danger' : '' }}">
+                        <label for="confirm_password" class="col-3 col-form-label">Confirm Password</label>
+                        <div class="col-9">
+                            <input id="confirm_password" class="form-control{{ errors.has('confirm_password') ? ' form-control-danger' : '' }}" type="password" name="confirm_password">
+                            {% if errors.has('confirm_password') %}
+                            <div class="form-control-feedback">{{ errors.first('confirm_password') }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                {{ csrf.field | raw }}
-                    <button class="btn btn-raised btn-primary" type="submit">Register</button>
-                </fieldset>
-            </form>
+                    {% if getenv('APP_ACTIVATION_METHOD') == 'recaptcha' %}
+                    <div class="form-group row">
+                        <label for="g-recaptcha" class="col-3 col-form-label">Robot?</label>
+                        <div class="col-9">
+                            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="{{ getenv('RECAPTCHA_PUBLIC') }}"></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {{ csrf.field | raw }}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-primary btn-md">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted text-center">
+                Already have an account? <a href="{{ path_for('auth.login') }}">Login</a>
+            </div>
         </div>
     </div>
-</div>
+
+{% endblock %}
+{% block scripts %}
+{% if getenv('APP_ACTIVATION_METHOD') == 'recaptcha' %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endif %}
 {% endblock %}

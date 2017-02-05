@@ -1,0 +1,72 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+<div class="col-12">
+    <h1 class="text-center">Settings</h1>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h3 class="card-header text-center">Profile</h3>
+                <div class="card-block">
+                    <form action="{{ path_for('auth.settings.profile') }}" method="POST">
+                        <div class="form-group row">
+                            <label for="username" class="col-2 col-form-label">Username</label>
+                            <div class="col-10">
+                                <p class="form-control-static">{{ auth.user.username }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row{{ errors.has('email') ? ' has-danger' : '' }}">
+                            <label for="email" class="col-2 col-form-label">E-Mail</label>
+                            <div class="col-10">
+                                <input type="text" class="form-control{{ errors.has('email') ? ' form-control-danger' : '' }}" id="email" name="email" value="{{ old.email ? old.email : auth.user.email }}">
+                                {% if errors.has('email') %}
+                                <div class="form-control-feedback">{{ errors.first('email') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <h3 class="card-header text-center">Password</h3>
+                <div class="card-block">
+                    <form action="{{ path_for('auth.settings.password') }}" method="POST">
+                        <div class="form-group{% if errors.has('current_password') %} has-danger{% endif %}">
+                            <label for="current">Current Password</label>
+                            <input type="password" class="form-control{{ errors.has('current_password') ? ' form-control-danger' : '' }}" id="current" name="current_password" placeholder="Enter your current password">
+                            {% if errors.has('current_password') %}
+                            <div class="form-control-feedback">{{ errors.first('current_password') }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group{{ errors.has('new_password') ? ' has-danger' : '' }}">
+                            <label for="new">New Password</label>
+                            <input type="password" class="form-control{{ errors.has('new_password') ? ' form-control-danger' : '' }}" id="new" name="new_password" placeholder="Create a new password">
+                            {% if errors.has('new_password') %}
+                            <div class="form-control-feedback">{{ errors.first('new_password') }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group{{ errors.has('confirm_new_password') ? ' has-danger' : '' }}">
+                            <label for="confirm">Confirm New Password</label>
+                            <input type="password" class="form-control{{ errors.has('confirm_new_password') ? ' form-control-danger' : '' }}" id="confirm" name="confirm_new_password" placeholder="Confirm your new password">
+                            {% if errors.has('confirm_new_password') %}
+                            <div class="form-control-feedback">{{ errors.first('confirm_new_password') }}</div>
+                            {% endif %}
+                        </div>
+                        {{ csrf.field | raw }}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,31 +1,37 @@
-<div class="navbar navbar-inverse navbar-static-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="javascript:void(0)">Auth</a>
-    </div>
-    <div class="navbar-collapse collapse navbar-inverse-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="{{ path_for('home') }}">Home</a></li>
-        {% if auth.check %}
-          <li><a href="{{ path_for('auth.account') }}">My Account</a></li>
-        {% endif %}
+<nav class="navbar fixed-top navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container">
+    <a class="navbar-brand" href="{{ path_for('home') }}">{{ getenv('APP_NAME', 'My App') }}</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="nav navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path_for('home') }}">Home</a>
+        </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-          {% if auth.check %}
-          <p class="navbar-text">
-              Signed in as {{ auth.user.username }}
-          </p>
-          <li><a href="{{ path_for('auth.logout') }}">Logout</a></li>
-          {% else %}
-          <li><a href="{{ path_for('auth.login') }}">Login</a></li>
-          <li><a href="{{ path_for('auth.register') }}">Register</a></li>
-          {% endif %}
+      <ul class="nav navbar-nav">
+        {% if auth.check %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{{ path_for('home') }}" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ auth.user.username }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="accountMenu">
+            <a class="dropdown-item" href="{{ path_for('auth.settings') }}">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ path_for('auth.logout') }}">Logout</a>
+          </div>
+        </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path_for('auth.login') }}">Login</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path_for('auth.register') }}">Register</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
-</div>
+</nav>
