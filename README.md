@@ -1,4 +1,4 @@
-# Slim 3 Authentication v2
+# Slim 3 Authentication
 A very easy to use Slim 3 authentication system.
 
 ## Getting Started
