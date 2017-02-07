@@ -1,6 +1,9 @@
 # Slim 3 Authentication
 A very easy to use Slim 3 authentication system.
 
+[![Latest Unstable Version](https://poser.pugx.org/devsavage/slim-3-authentication/v/unstable?format=flat-square)](https://packagist.org/packages/devsavage/slim-3-authentication)  
+[![License](https://poser.pugx.org/devsavage/slim-3-authentication/license?format=flat-square)](https://packagist.org/packages/devsavage/slim-3-authentication)
+
 ## Getting Started
 
 ### Prerequisites
