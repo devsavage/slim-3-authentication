@@ -22,22 +22,43 @@ class User extends Model
         $this->updateRememberCredentials(null, null);
     }
 
-    public function userRole()
+    public function roles()
     {
-        return $this->hasOne('\App\Database\UserRole', 'user_id');
+        return $this->belongsToMany(Role::class, 'users_roles', 'user_id');
     }
 
-    public function hasRole($role)
+    public function userRoles()
     {
-        if(!$this->userRole) {
+        return $this->hasMany(UserRole::class, 'user_id');
+    }
+
+    public function giveRole($title)
+    {
+        $role = Role::where('title', $title)->first();
+
+        if(!$role) {
             return false;
         }
 
-        return (bool)$this->userRole->{$role};
+        $userRoles = $this->userRoles();
+
+        if($userRoles->where('role_id', $role->id)->first()) {
+            return true;
+        }
+
+        return $this->userRoles()->create([
+            'role_id' => $role->id,
+        ]);
     }
 
-    public function isAdmin()
+    public function hasRole(...$roles)
     {
-        return $this->hasRole('is_admin');
+        foreach ($roles as $role) {
+            if ($this->roles->contains('title', $role)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

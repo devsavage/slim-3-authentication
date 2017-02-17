@@ -7,9 +7,5 @@ class UserRole extends Model
 {
     protected $table = 'users_roles';
 
-    protected $fillable = ['is_admin'];
-
-    public static $defaults = [
-        'is_admin' => false,
-    ];
+    protected $fillable = ['role_id', 'user_id'];
 }
