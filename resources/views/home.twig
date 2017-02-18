@@ -1,4 +1,5 @@
 {% extends 'templates/app.twig' %}
+{% set page = "home" %}
 {% block content %}
 <h1 class="text-center">Welcome home{{ auth.check ? ", " ~ auth.user.username ~ "!"  : "." }}</h1>
 {% if auth.check and auth.user.isAdmin() %}

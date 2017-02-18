@@ -6,7 +6,7 @@
     <a class="navbar-brand" href="{{ path_for('home') }}">{{ getenv('APP_NAME', 'My App') }}</a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="nav navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item{{ page == "home" ? ' active' : '' }}">
           <a class="nav-link" href="{{ path_for('home') }}">Home</a>
         </li>
       </ul>
@@ -23,11 +23,11 @@
           </div>
         </li>
         {% else %}
-          <li class="nav-item">
+          <li class="nav-item{{ page == "login" ? ' active' : '' }}">
             <a class="nav-link" href="{{ path_for('auth.login') }}">Login</a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item{{ page == "register" ? ' active' : '' }}">
             <a class="nav-link" href="{{ path_for('auth.register') }}">Register</a>
           </li>
         {% endif %}
