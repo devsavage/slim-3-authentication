@@ -12,7 +12,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
         <![endif]-->
 
-        <title>{{ getenv('APP_NAME', 'My App') }}</title>
+        <title>{{ title is defined ? title : getenv('APP_NAME', 'My App') }}</title>
     </head>
     <body>
         {% include 'templates/partials/nav.twig'%}

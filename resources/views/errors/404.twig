@@ -1,0 +1,11 @@
+{% extends 'templates/app.twig' %}
+{% set title = "Error 404 (Not Found)" %}
+{% block content %}
+    <div class="text-center">
+        <h1><span class="text-danger">404.</span> That's an error.</h1>
+        <br>
+        <h5>The requested URL <span class="text-danger">{{ request_uri }}</span> was not found on this server.</h5>
+        <br>
+        <p class="text-muted">That's all we know.</p>
+    </div>
+{% endblock %}

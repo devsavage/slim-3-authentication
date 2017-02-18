@@ -50,6 +50,42 @@ return [
         return $view;
     },
 
+    'notFoundHandler' => function($c) {
+        return function($request, $response) use ($c) {
+            $response = $response->withStatus(404);
+            return $c->view->render($response, 'errors/404.twig', [
+                'request_uri' => urldecode($_SERVER['REQUEST_URI'])
+            ]);
+        };
+    },
+
+    'notAllowedHandler' => function($c) {
+        return function ($request, $response, $methods) use ($c) {
+            $response = $response->withStatus(405);
+            return $c->view->render($response, 'errors/405.twig', [
+                'request_uri' => $_SERVER['REQUEST_URI'],
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'methods' => implode(', ', $methods)
+            ]);
+        };
+    },
+
+    'errorHandler' => function($c) {
+        return function($request, $response, $exception) use ($c) {
+            $response = $response->withStatus(500);
+
+            $data = [
+                'exception' => null
+            ];
+
+            if(env('APP_ENV') === "development") {
+                $data['exception'] = $exception->getMessage();
+            }
+
+            return $c->view->render($response, 'errors/500.twig', $data);
+        };
+    },
+
     'csrf' => function($c) {
         $guard = new \Slim\Csrf\Guard;
 

@@ -1,0 +1,15 @@
+{% extends 'templates/app.twig' %}
+{% set title = "Error 500 (Internal Server Error)" %}
+{% block content %}
+    <div class="text-center">
+        <h1><span class="text-danger">500.</span> That's a (bad) error.</h1>
+        <br>
+        <h5>Sorry, but the server could not handle your request at this time.<br> You can try refreshing or try your request again later.</h5>
+        <br>
+        {% if exception %}
+            <h5 class="text-danger">Exception: {{ exception }}</h5>
+            <br>
+        {% endif %}
+        <p class="text-muted">Sorry about that.</p>
+    </div>
+{% endblock %}

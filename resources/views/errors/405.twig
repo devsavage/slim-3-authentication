@@ -1,0 +1,11 @@
+{% extends 'templates/app.twig' %}
+{% set title = "Error 405 (Method Not Allowed)" %}
+{% block content %}
+    <div class="text-center">
+        <h1><span class="text-danger">405.</span> That's an error.</h1>
+        <br>
+        <h5>Your requested method (<strong>{{ method }}</strong>) is not allowed for <b>{{ request_uri }}</b>.</h5>
+        <br>
+        <p class="text-muted">Acceptable Methods: <b>{{ methods }}</b></p>
+    </div>
+{% endblock %}
