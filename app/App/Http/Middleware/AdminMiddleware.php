@@ -8,7 +8,7 @@ class AdminMiddleware extends Middleware
     public function __invoke($request, $response, $next)
     {
         if(!$this->container->auth->check() || $this->container->auth->check() && !$this->container->auth->user()->hasRole('admin')) {
-            return $this->redirect($response, 'home');
+            return $this->notFound($request, $response);
         }
         
         $response = $next($request, $response);

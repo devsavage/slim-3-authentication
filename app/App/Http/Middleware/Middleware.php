@@ -2,6 +2,7 @@
 namespace App\Http\Middleware;
 
 use Interop\Container\ContainerInterface;
+use Slim\Exception\NotFoundException;
 
 class Middleware
 {
@@ -30,6 +31,11 @@ class Middleware
     public function redirect($response, $path)
     {
         return $response->withRedirect($this->router()->pathFor($path));
+    }
+
+    public function notFound($request, $response)
+    {
+        throw new NotFoundException($request, $response);
     }
 
     protected function router()
