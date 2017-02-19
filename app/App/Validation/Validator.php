@@ -43,6 +43,8 @@ class Validator extends Violin
 
         $this->addRuleMessages([
             'matchesCurrentPassword' => 'Your current password is incorrect.',
+            'adminUniqueEmail' => "This e-mail is tied to another account.",
+            'adminUniqueUsername' => "This username is taken by another account.",
         ]);
     }
 
@@ -69,5 +71,35 @@ class Validator extends Violin
         }
 
         return false;
+    }
+
+    public function validate_adminUniqueEmail($value, $input, $args)
+    {
+        $user = $this->container->user->where('email', $args[0])->first();
+
+        if(!$user) {
+            return false;
+        }
+
+        if($user->email === $value) {
+            return true;
+        }
+
+        return !(bool) $this->container->user->where('email', $value)->count();
+    }
+
+    public function validate_adminUniqueUsername($value, $input, $args)
+    {
+        $user = $this->container->user->where('username', $args[0])->first();
+
+        if(!$user) {
+            return false;
+        }
+
+        if($user->username === $value) {
+            return true;
+        }
+
+        return !(bool) $this->container->user->where('username', $value)->count();
     }
 }

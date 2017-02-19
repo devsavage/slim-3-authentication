@@ -1,0 +1,49 @@
+{% extends 'templates/app.twig' %}
+{% set page = "adminUserList" %}
+{% block content %}
+    {% include 'admin/templates/partials/_header.twig' %}
+
+    <div class="card">
+        <div class="card-block">
+            {% if users is empty %}
+                <h4 class="text-center">You don't have any registerd users.</h4>
+            {% else %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>E-Mail</th>
+                        <th>Active</th>
+                        <th>Action</th>
+                    </tr>
+                </thea>
+                </thea>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td class="{{ user.hasRole('admin') ? 'text-danger' : '' }}">{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {{ user.active == true ? 'Yes' : 'No' }}
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ user.hasRole('admin') ? '#' : path_for('admin.users.edit', {userId: user.id}) }}">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-edit fa-stack-1x"></i>
+                                        {% if user.hasRole('admin') %}
+                                            <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                                        {% endif %}
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

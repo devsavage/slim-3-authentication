@@ -1,0 +1,15 @@
+{% extends 'templates/app.twig' %}
+{% block content %}
+    {% include 'admin/templates/partials/_header.twig' %}
+    
+    <div class="text-center">
+        <h3>Are you sure you want to delete <b>{{ user.username }}</b>'s account?</h3>
+        <h4 class="text-danger">Warning: This will delete all records tied to this account and cannot be undone!</h4>
+        <br>
+        <form action="{{ path_for('admin.users.delete', {userId: user.id}) }}" method="POST">
+            {{ csrf.field | raw }}
+            <button type="submit" name="delete" value="true" class="btn btn-danger">Yes, Delete this account</button>
+            <button type="submit" name="delete" value="false" class="btn btn-success">No, Don't delete it</button>
+        </form>
+    </div>
+{% endblock %}

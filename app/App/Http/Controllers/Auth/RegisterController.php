@@ -46,8 +46,6 @@ class RegisterController extends Controller
                 'active' => false,
             ]);
 
-            $user->userRole()->create(\App\Database\UserRole::$defaults);
-
             if($this->config('app.activation.method') === 'mail') {
                 $this->flash('info', $this->lang('alerts.registration.requires_mail_activation'));
                 $this->mail->send('/mail/auth/activate.twig', ['hash' => $activeHash, 'user' => $user], function($message) use ($user) {

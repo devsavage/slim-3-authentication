@@ -5,6 +5,11 @@ class TwigExtension extends \Twig_Extension
 {
     protected $container;
 
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
+
     public function getName()
     {
         return 'app';
@@ -15,6 +20,7 @@ class TwigExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('asset', [$this, 'asset']),
             new \Twig_SimpleFunction('getenv', [$this, 'getenv']),
+            new \Twig_SimpleFunction('config', [$this, 'config']),
         ];
     }
 
@@ -26,5 +32,10 @@ class TwigExtension extends \Twig_Extension
     public function getenv($key, $default = null)
     {
         return env($key, $default);
+    }
+
+    public function config($key)
+    {
+        return $this->container->config->get($key);
     }
 }

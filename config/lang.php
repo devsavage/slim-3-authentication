@@ -49,6 +49,35 @@ return [
                     'failed' => "Your profile couldn't be updated at this time.",
                 ]
             ]
-        ]
+        ],
+
+        'admin' => [
+            'user' => [
+                'general' => [
+                    'user_not_found' => "User not found.",
+                    'user_edit_from_settings' => "You cannot edit your profile from the Admin Dashboard!",
+                    'user_is_admin' => "You are not allowed to change other admin settings!",
+                    'user_deleted' => "User has been deleted.",
+                    'user_not_deleted' => "User was not deleted.",
+                ],
+                'revoke' => [
+                    'remember' => "User's remember credentials have been removed.",
+                    'recovery' => "User's recover hash has been revoked.",
+                ],
+                'update' => [
+                    'profile' => [
+                        'success' => "User profile updated!",
+                        'fail' => "User profile cannot be updated!",
+                    ],
+                    'settings' => [
+                        'active' => [
+                            'yes' => "User's account has been activated!",
+                            'resend' => "User's account has been deactivated and another activation email has been sent.",
+                            'no' => "User's account has been deactivated!",
+                        ]
+                    ],
+                ]
+            ]
+        ],
     ]
 ];

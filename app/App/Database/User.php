@@ -22,6 +22,26 @@ class User extends Model
         $this->updateRememberCredentials(null, null);
     }
 
+    public function revokeRecoveryHash()
+    {
+        $this->update([
+            'recover_hash' => null,
+        ]);
+    }
+
+    public function activate($value = true, $hash = null)
+    {
+        $this->update([
+            'active' => $value,
+            'active_hash' => $hash
+        ]);
+    }
+
+    public function deactivate($hash = null)
+    {
+        $this->activate(false, $hash);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'users_roles', 'user_id');

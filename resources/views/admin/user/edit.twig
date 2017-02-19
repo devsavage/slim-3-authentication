@@ -1,0 +1,91 @@
+{% extends 'templates/app.twig' %}
+{% set page = "adminUserEdit" %}
+{% block content %}
+    {% include 'admin/templates/partials/_header.twig' %}
+    <div class="row">
+        <div class="col-12">
+            <div class="pull-right">
+                <a class="btn btn-warning" href="{{ path_for('admin.users.update.role', {userId: user.id, role: 'admin'}) }}"><i class="fa fa-unlock fa-fw"></i> Make Admin</a>
+                <a class="btn btn-danger" href="{{ path_for('admin.users.delete', {userId: user.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete Account</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h3 class="card-header">
+                    Profile
+                </h3>
+                <div class="card-block">
+                    <form action="{{ path_for('admin.users.edit.profile', {userId: user.id}) }}" method="POST">
+                        <div class="form-group row{{ errors.has('username') ? ' has-danger' : '' }}">
+                            <label for="username" class="col-2 col-form-label">Username</label>
+                            <div class="col-10">
+                                <input class="form-control{{ errors.has('username') ? ' form-control-danger' : '' }}" type="text" name="username" id="username" v value="{{ old.username ? old.username : user.username }}">
+                                {% if errors.has('username') %}
+                                    <div class="form-control-feedback">{{ errors.first('username') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row{{ errors.has('email') ? ' has-danger' : '' }}">
+                            <label for="email" class="col-2 col-form-label">E-Mail</label>
+                            <div class="col-10">
+                                <input class="form-control{{ errors.has('email') ? ' form-control-danger' : '' }}" type="text" name="email" id="email" value="{{ old.email ? old.email : user.email }}">
+                                {% if errors.has('email') %}
+                                    <div class="form-control-feedback">{{ errors.first('email') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <hr>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <h3 class="card-header">
+                    Settings 
+                </h3>
+                <div class="card-block">
+                    <form action="{{ path_for('admin.users.edit.settings', {userId: user.id}) }}" method="POST">
+                        <div class="form-group row">
+                            <label for="active" class="col-2 col-form-label">Active</label>
+                            <div class="col-10">
+                                <select name="active" id="active" class="form-control">
+                                    <option value="yes"{{ user.active == true ? ' selected="selected"' : '' }}>Yes</option>
+                                    {% if config('app.activation.method') == 'mail' %}
+                                        <option value="resend">No, but resend activation email</option>
+                                    {% endif %}
+                                    <option value="no"{{ user.active == false ? ' selected="selected"' : '' }}>No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        {{ csrf.field | raw }}
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-block">
+                    <div class="text-center">
+                        <a class="btn btn-secondary{{ user.recover_hash == null ? ' disabled' : '' }}" href="{{ path_for('admin.users.edit.profile', {userId: user.id}) }}?revoke=recovery">Revoke Recovery Hash</a>
+                        <a class="btn btn-secondary {{ user.remember_token == null and user.remember_identifier == null ? ' disabled' : '' }}" href="{{ path_for('admin.users.edit.profile', {userId: user.id}) }}?revoke=remember">Revoke Remember Credentials</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

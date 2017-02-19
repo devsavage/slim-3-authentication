@@ -1,0 +1,11 @@
+<h1 class="text-center">Admin Dashboard</h1>
+<hr>
+<ul class="nav nav-pills nav-justified">
+  <li class="nav-item">
+    <a class="nav-link{{ page == "adminHome" ? ' active' : '' }}" href="{{ path_for('admin.home') }}">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link{{ page == "adminUserList" ? ' active' : '' }}" href="{{ path_for('admin.users.list') }}">User List</a>
+  </li>
+</ul>
+<hr>

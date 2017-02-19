@@ -1,0 +1,6 @@
+{% extends 'templates/app.twig' %}
+{% set page = "adminHome" %}
+{% block content %}
+    {% include 'admin/templates/partials/_header.twig' %}
+    <h5 class="text-center"><b>{{ auth.user.username }}</b>, welcome to the Admin Dashboard. Use the navigation bar above to find your way around.</h5>
+{% endblock %}

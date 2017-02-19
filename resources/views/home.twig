@@ -1,11 +1,11 @@
 {% extends 'templates/app.twig' %}
 {% set page = "home" %}
 {% block content %}
-<h1 class="text-center">Welcome home{{ auth.check ? ", " ~ auth.user.username ~ "!"  : "." }}</h1>
-{% if auth.check and auth.user.isAdmin() %}
-<br>
-<div class="text-center">
-    <h4>You are an <span class="text-danger">admin</span>!</h4>
-</div>
-{% endif %}
+    <h1 class="text-center">Welcome home{{ auth.check ? ", " ~ auth.user.username ~ "!"  : "." }}</h1>
+    {% if auth.check and auth.user.hasRole('admin') %}
+        <br>
+        <div class="text-center">
+            <h4>You are an <span class="text-danger">admin</span>!</h4>
+        </div>
+    {% endif %}
 {% endblock %}
