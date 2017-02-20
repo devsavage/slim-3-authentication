@@ -17,22 +17,21 @@
                         <th>Active</th>
                         <th>Action</th>
                     </tr>
-                </thea>
-                </thea>
+                </thead>
                 <tbody>
                     {% for user in users %}
                         <tr>
                             <td>{{ user.id }}</td>
-                            <td class="{{ user.hasRole('admin') ? 'text-danger' : '' }}">{{ user.username }}</td>
+                            <td class="{{ user.isAdmin() or user.isSuperAdmin() ? 'text-danger' : '' }}">{{ user.username }}</td>
                             <td>{{ user.email }}</td>
                             <td>
                                 {{ user.active == true ? 'Yes' : 'No' }}
                             </td>
                             <td class="text-center">
-                                <a href="{{ user.hasRole('admin') ? '#' : path_for('admin.users.edit', {userId: user.id}) }}">
+                                <a href="{{ auth.user.canEdit(user) ? path_for('admin.users.edit', {userId: user.id}) : '#' }}">
                                     <span class="fa-stack">
                                         <i class="fa fa-edit fa-stack-1x"></i>
-                                        {% if user.hasRole('admin') %}
+                                        {% if not auth.user.canEdit(user) %}
                                             <i class="fa fa-ban fa-stack-2x text-danger"></i>
                                         {% endif %}
                                     </span>

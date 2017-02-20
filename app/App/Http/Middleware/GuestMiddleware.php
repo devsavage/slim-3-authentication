@@ -7,7 +7,7 @@ class GuestMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)
     {
-        if($this->container->auth->check()) {
+        if($this->auth()->check()) {
             return $this->redirect($response, 'home');
         }
         

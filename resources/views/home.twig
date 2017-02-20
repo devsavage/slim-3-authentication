@@ -2,7 +2,7 @@
 {% set page = "home" %}
 {% block content %}
     <h1 class="text-center">Welcome home{{ auth.check ? ", " ~ auth.user.username ~ "!"  : "." }}</h1>
-    {% if auth.check and auth.user.hasRole('admin') %}
+    {% if auth.check and auth.user.isAdmin() or auth.user.isSuperAdmin() %}
         <br>
         <div class="text-center">
             <h4>You are an <span class="text-danger">admin</span>!</h4>

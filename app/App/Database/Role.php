@@ -7,5 +7,10 @@ class Role extends Model
 {
     protected $table = 'roles';
 
-    protected $fillable = ['title']; 
+    protected $fillable = ['title'];
+    
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'roles_permissions');
+    }
 }

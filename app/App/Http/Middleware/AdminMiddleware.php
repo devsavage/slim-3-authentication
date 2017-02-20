@@ -7,11 +7,13 @@ class AdminMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)
     {
-        if(!$this->container->auth->check() || $this->container->auth->check() && !$this->container->auth->user()->hasRole('admin')) {
-            return $this->notFound($request, $response);
+        if($this->auth()->check()) {
+            if($this->user()->isAdmin() || $this->user()->isSuperAdmin() || $this->user()->can('view admin pages')) {
+                $response = $next($request, $response);
+                return $response;
+            }
         }
-        
-        $response = $next($request, $response);
-        return $response;
+
+        return $this->notFound($request, $response);
     }
 }

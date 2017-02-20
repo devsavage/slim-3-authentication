@@ -35,7 +35,7 @@ $app->group('/admin', function() {
     
     $this->route(['GET', 'POST'], '/users/{userId}/edit/settings', App\Http\Controllers\Admin\AdminUserController::class, 'editSettings')->setName('admin.users.edit.settings');
 
-    $this->route(['GET'], '/users/{userId}/update/role/{role}', App\Http\Controllers\Admin\AdminUserController::class, 'role')->setName('admin.users.update.role');
+    $this->route(['POST'], '/users/{userId}/update/role/{role}/{action}', App\Http\Controllers\Admin\AdminUserController::class, 'updateRole')->setName('admin.users.update.role');
 })->add(new App\Http\Middleware\AdminMiddleware($app->getContainer()));
 
 $app->get('/auth/logout', function($request, $response, $args) {

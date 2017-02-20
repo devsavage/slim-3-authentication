@@ -9,7 +9,7 @@ class AdminUserController extends Controller
     public function get()
     {
         return $this->render('admin/user/list', [
-            'users' => User::all()->except($this->auth->user()->id),
+            'users' => User::all()->except($this->user()->id),
         ]);
     }
 
@@ -18,7 +18,12 @@ class AdminUserController extends Controller
         $user = User::where('id', $userId)->first();
 
         if(!$this->authorize($user)) {
-            return $this->redirect('admin.home');
+            return $this->redirect('admin.users.list');
+        }
+
+        if(!$this->user()->can('edit users')) {
+            $this->flash("error", $this->lang('admin.user.general.not_authorized'));
+            return $this->redirect('admin.users.list');
         }
 
         if($this->param('revoke')) {
@@ -62,7 +67,12 @@ class AdminUserController extends Controller
         $user = User::where('id', $userId)->first();
 
         if(!$this->authorize($user)) {
-            return $this->redirect('admin.home');
+            return $this->redirect('admin.users.list');
+        }
+
+        if(!$this->user()->can('edit users')) {
+            $this->flash("error", $this->lang('admin.user.general.not_authorized'));
+            return $this->redirect('admin.users.list');
         }
 
         $validator = $this->validator()->validate([
@@ -99,7 +109,12 @@ class AdminUserController extends Controller
         $user = User::where('id', $userId)->first();
 
         if(!$this->authorize($user)) {
-            return $this->redirect('admin.home');
+            return $this->redirect('admin.users.list');
+        }
+
+        if(!$this->user()->can('edit users')) {
+            $this->flash("error", $this->lang('admin.user.general.not_authorized'));
+            return $this->redirect('admin.users.list');
         }
 
         $active = $this->param('active');
@@ -142,7 +157,12 @@ class AdminUserController extends Controller
         $user = User::where('id', $userId)->first();
 
         if(!$this->authorize($user)) {
-            return $this->redirect('admin.home');
+            return $this->redirect('admin.users.list');
+        }
+
+        if(!$this->user()->can('edit users')) {
+            $this->flash("error", $this->lang('admin.user.general.not_authorized'));
+            return $this->redirect('admin.users.list');
         }
 
         return $this->render('admin/user/delete', [
@@ -155,7 +175,12 @@ class AdminUserController extends Controller
         $user = User::where('id', $userId)->first();
 
         if(!$this->authorize($user)) {
-            return $this->redirect('admin.home');
+            return $this->redirect('admin.users.list');
+        }
+
+        if(!$this->user()->can('delete users')) {
+            $this->flash("error", $this->lang('admin.user.general.not_authorized'));
+            return $this->redirect('admin.users.list');
         }
 
         $delete = $this->param('delete');
@@ -170,15 +195,42 @@ class AdminUserController extends Controller
             return $this->redirect('admin.users.list');
         }
 
-        $this->flash('success', $this->lang('admin.user.general.user_not_deleted'));
+        $this->flash('info', $this->lang('admin.user.general.user_not_deleted'));
         return $this->redirect('admin.users.edit', [
             'userId' => $userId
         ]);
     }
 
-    public function getRole($userId, $role)
+    public function postUpdateRole($userId, $role, $action)
     {
-        return "todo";
+        $user = User::where('id', $userId)->first();
+
+        if(!$this->authorize($user)) {
+            return $this->redirect('admin.users.list');
+        }
+
+        if(!$this->user()->can('manage roles') || $role == "admin" && !$this->user()->can('make admin')) {
+            $this->flash("error", $this->lang('admin.user.general.not_authorized'));
+            return $this->redirect('admin.users.list');
+        }
+
+        switch ($action) {
+            case 'set':
+                $user->giveRole($role);
+                $this->flash("raw_success", "You have set the role to <b>{$role}</b> for <b>{$user->username}</b>.");
+                break;
+            case 'remove':
+                $user->removeRole($role);
+                $this->flash("raw_success", "You have removed the role <b>{$role}</b> from <b>{$user->username}</b>.");
+                break;
+            default:
+                continue;
+                break;
+        }
+
+        return $this->redirect('admin.users.edit', [
+            'userId' => $userId
+        ]);
     }
 
     protected function authorize($user)
@@ -188,13 +240,13 @@ class AdminUserController extends Controller
             return false;
         }
 
-        if($user->id === $this->auth->user()->id) {
+        if($user->id === $this->user()->id) {
             $this->flash('error', $this->lang('admin.user.general.user_edit_from_settings'));
             return false;
         }
 
-        if($user->hasRole('admin')) {
-            $this->flash('error', $this->lang('admin.user.general.user_is_admin'));
+        if(!$this->user()->canEdit($user)) {
+            $this->flash('error', $this->lang('admin.user.general.cant_edit_user'));
             return false;
         }
 

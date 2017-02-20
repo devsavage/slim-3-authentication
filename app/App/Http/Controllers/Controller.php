@@ -74,6 +74,16 @@ class Controller
         return new Validator($this->container);
     }
 
+    public function auth()
+    {
+        return $this->auth;
+    }
+
+    public function user()
+    {
+        return $this->auth()->user();
+    }
+
     protected function router()
     {
         return $this->container['router'];

@@ -1,10 +1,13 @@
 <?php
 namespace App\Database;
 
+use App\Traits\HasPermissionsTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+    use HasPermissionsTrait;
+
     protected $table = 'users';
 
     protected $fillable = ['username', 'email', 'password', 'active', 'active_hash', 'remember_identifier', 'remember_token', 'recover_hash']; 
@@ -42,15 +45,24 @@ class User extends Model
         $this->activate(false, $hash);
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'users_roles', 'user_id');
-    }
-
     public function userRoles()
     {
         return $this->hasMany(UserRole::class, 'user_id');
     }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole('superadmin');
+    }
+
+    /**
+     * Make this functionality better.
+     */
 
     public function giveRole($title)
     {
@@ -71,12 +83,46 @@ class User extends Model
         ]);
     }
 
-    public function hasRole(...$roles)
+    /**
+     * Make this functionality better.
+     */
+
+    public function removeRole($title)
     {
-        foreach ($roles as $role) {
-            if ($this->roles->contains('title', $role)) {
-                return true;
-            }
+        $role = Role::where('title', $title)->first();
+
+        if(!$role) {
+            return false;
+        }
+
+        $userRole = $this->userRoles()->where('role_id', $role->id)->first();
+
+        if($userRole) {
+            return $userRole->delete();
+        }
+
+        return true;
+    }
+    
+    public function can($action)
+    {
+        $permission = Permission::where('name', $action)->first();
+
+        if(!$permission) {
+            return false;
+        }
+
+        return $this->hasPermissionTo($permission);
+    }
+
+    public function canEdit(User $user)
+    {
+        if($this->isSuperAdmin() && $user->isSuperAdmin()) {
+            return false;
+        }
+        
+        if($user->isAdmin() && $this->can('edit admins') || !$user->isAdmin() && $this->can('edit users') && !$user->isSuperAdmin()) {
+            return true;
         }
 
         return false;

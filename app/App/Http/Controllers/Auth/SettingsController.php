@@ -30,7 +30,7 @@ class SettingsController extends Controller
         ]);
 
         if($validator->passes()) {
-            $user = $this->auth->user()->update([
+            $user = $this->user()->update([
                 'email' => $email,
             ]);
 
@@ -57,7 +57,7 @@ class SettingsController extends Controller
         ]);
 
         if($validator->passes()) {
-            $this->auth->user()->update([
+            $this->user()->update([
                 'password' => $this->hash->password($newPassword),
             ]);
 

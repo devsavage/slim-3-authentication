@@ -52,9 +52,9 @@ class PasswordResetController extends Controller
     {
         $identifier = $this->param('identifier');
 
-        // if(!$identifier) {
-        //     return $this->redirect('auth.login');
-        // }
+        if(!$identifier) {
+            return $this->redirect('auth.login');
+        }
 
         return $this->render('auth/password/reset', [
             'identifier' => $identifier,

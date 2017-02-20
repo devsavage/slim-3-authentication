@@ -12,7 +12,7 @@
       </ul>
       <ul class="nav navbar-nav">
         {% if auth.check %}
-          {% if auth.user.hasRole('admin') %}
+          {% if auth.user.isAdmin() or auth.user.isSuperAdmin() %}
             <li class="nav-item">
               <a class="nav-link" href="{{ path_for('admin.home') }}">Admin Dashboard</a>
             </li>

@@ -56,9 +56,10 @@ return [
                 'general' => [
                     'user_not_found' => "User not found.",
                     'user_edit_from_settings' => "You cannot edit your profile from the Admin Dashboard!",
-                    'user_is_admin' => "You are not allowed to change other admin settings!",
+                    'cant_edit_user' => "You do not have permission to edit that user!",
                     'user_deleted' => "User has been deleted.",
                     'user_not_deleted' => "User was not deleted.",
+                    'not_authorized' => "You are not authorized to complete that action!",
                 ],
                 'revoke' => [
                     'remember' => "User's remember credentials have been removed.",

@@ -7,7 +7,7 @@ class AuthMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)
     {
-        if(!$this->container->auth->check()) {
+        if(!$this->auth()->check()) {
             $this->flash('warning', $this->lang('alerts.requires_auth'));
             return $this->redirect($response, 'auth.login');
         }

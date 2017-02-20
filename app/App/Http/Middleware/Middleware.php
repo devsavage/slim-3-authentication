@@ -13,6 +13,16 @@ class Middleware
         $this->container = $container;
     }
 
+    public function auth()
+    {
+        return $this->container->auth;
+    }
+
+    public function user()
+    {
+        return $this->auth()->user();
+    }
+
     public function flash($type, $message)
     {
         $this->container->flash->addMessage($type, $message);

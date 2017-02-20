@@ -5,8 +5,12 @@
     <div class="row">
         <div class="col-12">
             <div class="pull-right">
-                <a class="btn btn-warning" href="{{ path_for('admin.users.update.role', {userId: user.id, role: 'admin'}) }}"><i class="fa fa-unlock fa-fw"></i> Make Admin</a>
-                <a class="btn btn-danger" href="{{ path_for('admin.users.delete', {userId: user.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete Account</a>
+                {% if auth.user.can('make admin') %}
+                    <a class="btn btn-warning" href="#" onclick="event.preventDefault();document.getElementById('updateRole').submit();"><i class="fa fa-{{ user.isAdmin() ? 'lock' : 'unlock' }} fa-fw"></i> {{ user.isAdmin() ? 'Remove Admin Privileges' : 'Give Admin Privileges'}}</a>
+                {% endif %}
+                {% if auth.user.can('delete users') %}
+                    <a class="btn btn-danger" href="{{ path_for('admin.users.delete', {userId: user.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete Account</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -87,5 +91,9 @@
             </div>
         </div>
     </div>
-
+    {% if auth.user.can('make admin') %}
+        <form action="{{ path_for('admin.users.update.role', {userId: user.id, role: 'admin', action: user.hasRole('admin') ? 'remove' : 'set'}) }}" method="POST" id="updateRole">
+            {{ csrf.field | raw }}
+        </form>
+    {% endif %}
 {% endblock %}
