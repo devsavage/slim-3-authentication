@@ -22,15 +22,29 @@ You will need the following to get started:
 ```
 git clone https://github.com/devsavage/slim-3-authentication.git your-project-name
 ```
+
 #### Install the composer dependencies:
 ```bash
 $ cd your-project-name && composer install
 ```
+
 #### Inside your project folder, install the node dependencies using yarn or npm:
 ```bash
 $ yarn install
 ```
+
 #### Rename *_.env-example_* to *_.env_*
+
+#### Update *_.env_* to your project's configuration
+
+#### Build assets (prodution or development)
+```bash
+$ yarn prod
+```
+
+```bash
+$ yarn dev
+```
 
 #### You will also need Google reCAPTCHA API keys. Get them [here](https://www.google.com/recaptcha).
 
@@ -41,5 +55,3 @@ $ yarn install
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-### You will be able to view a demo soon at [https://demo.savagedev.io](https://demo.savagedev.io)

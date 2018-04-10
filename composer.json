@@ -1,9 +1,9 @@
 {
 	"name": "devsavage/slim-3-authentication",
+	"description": "An authentication system using the Slim Framework.",
 	"type": "project",
-    "description": "An authentication system using the Slim Framework.",
 	"version": "2.0.0",
-    "keywords": ["authentication","slim-3", "slim3", "slimframework"],
+    "keywords": ["authentication","slim-3", "slim3", "slimframework", "slim-framework"],
 	"homepage": "https://github.com/devsavage/slim-3-authentication",
 	"license": "MIT",
     "authors": [
