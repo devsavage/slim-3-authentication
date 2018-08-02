@@ -44,8 +44,8 @@ class LoginController extends Controller
                 }
 
                 if($remember === "on") {
-                    $rememberIdentifier = $this->hash->generateString(128);
-                    $rememberToken = $this->hash->generateString(128);
+                    $rememberIdentifier = $this->hash->generate(128);
+                    $rememberToken = $this->hash->generate(128);
 
                     $user->updateRememberCredentials($rememberIdentifier, $this->hash->hash($rememberToken));
 
