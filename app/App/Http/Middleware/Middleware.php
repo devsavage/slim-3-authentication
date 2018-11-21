@@ -52,4 +52,13 @@ class Middleware
     {
         return $this->container['router'];
     }
+
+    protected function isSecure()
+    {
+        if(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' || !empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+            return true;
+        }
+
+        return false;
+    }
 }

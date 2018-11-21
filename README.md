@@ -4,7 +4,7 @@ A very easy to use Slim 3 authentication system.
 [![Latest Unstable Version](https://poser.pugx.org/devsavage/slim-3-authentication/v/unstable?format=flat-square)](https://packagist.org/packages/devsavage/slim-3-authentication)
 [![License](https://poser.pugx.org/devsavage/slim-3-authentication/license?format=flat-square)](https://packagist.org/packages/devsavage/slim-3-authentication)
 
-If you stumble upon any vulnerabilites within this package, more importantly with the role/permission system, please send your findings to: **savage@savagedev.io**.  
+If you stumble upon any vulnerabilities within this package, more importantly with the role/permission system, please send your findings to: **savage@savagedev.io**.  
 
 ## Getting Started
 
@@ -14,6 +14,7 @@ You will need the following to get started:
 
 * A web server with URL rewriting
  - PHP 5.5 or newer
+ - A SSL certificate will be required in production environments! Check out [HTTPS Is Easy](https://httpsiseasy.com/) for help setting this up!  
 * [Composer](https://getcomposer.org/)
 * [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
 
@@ -36,6 +37,10 @@ $ yarn install
 #### Rename *_.env-example_* to *_.env_*
 
 #### Update *_.env_* to your project's configuration
+```bash
+APP_ENV=development
+```
+You will need to update the APP_ENV variable to "production" when serving your application outside of a local environment!
 
 #### Build assets (prodution or development)
 ```bash
