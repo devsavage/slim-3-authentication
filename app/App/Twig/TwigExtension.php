@@ -18,9 +18,9 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('asset', [$this, 'asset']),
-            new \Twig_SimpleFunction('getenv', [$this, 'getenv']),
-            new \Twig_SimpleFunction('config', [$this, 'config']),
+            new \Twig\TwigFunction('asset', [$this, 'asset']),
+            new \Twig\TwigFunction('getenv', [$this, 'getenv']),
+            new \Twig\TwigFunction('config', [$this, 'config']),
         ];
     }
 
