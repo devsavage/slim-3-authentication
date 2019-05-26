@@ -27,7 +27,7 @@ return [
     },
 
     'twig' => function($c) {
-        $twig = new \Twig_Environment(new \Twig_Loader_Filesystem($c['settings']['viewTemplatesDirectory']));
+        $twig = new \Twig\Environment(new \Twig\Loader\FilesystemLoader($c['settings']['viewTemplatesDirectory']));
 
         // We need to load this again to use our functions with our mailing system.
         $twig->addExtension(new \App\Twig\TwigExtension($c));
@@ -46,7 +46,7 @@ return [
         ]);
 
         $view->addExtension(new \Slim\Views\TwigExtension($c['router'], $c['request']->getUri()));
-        $view->addExtension(new \Twig_Extension_Debug);
+        $view->addExtension(new \Twig\Extension\DebugExtension);
         $view->addExtension(new \App\Twig\TwigExtension($c));
 
         $view->getEnvironment()->addGlobal('flash', $c['flash']);
