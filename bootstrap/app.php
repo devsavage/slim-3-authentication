@@ -14,7 +14,7 @@ define('INC_ROOT', __DIR__);
 require INC_ROOT . '/../vendor/autoload.php';
 
 if(file_exists(__DIR__ . '/../.env')) {
-    $env = new Dotenv(__DIR__ . '/../');
+    $env = Dotenv::create(__DIR__ . '/../');
     $env->load();
 }
 

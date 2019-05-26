@@ -24,7 +24,7 @@
 	},
 
     "require": {
-		"php": ">=5.5.0 <=7.1",
+		"php": ">=5.5.0 ^7.2",
         "slim/slim": "^3.0",
 		"illuminate/database": "^5.2",
 		"slim/twig-view": "^2.0",
@@ -33,7 +33,7 @@
 		"alexgarrett/violin": "^2.2",
 		"ircmaxell/random-lib": "^1.1",
 		"phpmailer/phpmailer": "^5.2",
-		"vlucas/phpdotenv": "^2.3",
+		"vlucas/phpdotenv": "^3",
         "hassankhan/config": "^0.10.0",
 		"symfony/console": "^3.1",
 		"google/recaptcha": "~1.1"
