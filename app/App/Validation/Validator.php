@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Validation;
 
 use Violin\Violin;

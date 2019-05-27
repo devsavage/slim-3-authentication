@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Console;
 
 use Symfony\Component\Console\Application;
+use Phinx\Console\Command;
 
 class Console extends Application
 {

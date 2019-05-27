@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Console\Commands\Generator;
 
 use App\Console\Command;

@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Twig;
 
-class TwigExtension extends \Twig_Extension
+class TwigExtension extends \Twig\Extension\AbstractExtension
 {
     protected $container;
 

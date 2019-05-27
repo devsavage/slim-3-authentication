@@ -16,15 +16,17 @@
     ],
 	"autoload": {
 		"psr-4": {
-			"App\\": "app/App"
+			"App\\": "app/App",
+			"Migration\\": "app/Migration"
 		},
         "files": [
-            "app/helpers.php"
+            "app/helpers.php",
+            "phinx.php"
         ]
 	},
 
     "require": {
-		"php": ">=5.5.0 ^7.2",
+		"php": ">=5.6.0 ^7.2",
         "slim/slim": "^3.0",
 		"illuminate/database": "^5.2",
 		"slim/twig-view": "^2.0",
@@ -36,6 +38,7 @@
 		"vlucas/phpdotenv": "^3",
         "hassankhan/config": "^0.10.0",
 		"symfony/console": "^3.1",
-		"google/recaptcha": "~1.1"
+		"google/recaptcha": "~1.1",
+		"robmorgan/phinx": "^0.10.7"
     }
 }

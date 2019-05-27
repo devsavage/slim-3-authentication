@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Mail;
 
 use App\Mail\Mailtrap\Message;

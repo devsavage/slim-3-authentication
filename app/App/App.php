@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 use Slim\App as Slim;

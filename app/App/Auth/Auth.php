@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Auth;
 
 use App\Database\User;
