@@ -1,7 +1,6 @@
-{% extends 'templates/app.twig' %}
+{% extends 'admin/templates/admin.twig' %}
 {% set page = "adminUserEdit" %}
 {% block content %}
-    {% include 'admin/templates/partials/_header.twig' %}
     <div class="row">
         <div class="col-12">
             <div class="pull-right">
@@ -79,14 +78,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-block">
-                    <div class="text-center">
-                        <a class="btn btn-secondary{{ user.recover_hash == null ? ' disabled' : '' }}" href="{{ path_for('admin.users.edit.profile', {userId: user.id}) }}?revoke=recovery">Revoke Recovery Hash</a>
-                        <a class="btn btn-secondary {{ user.remember_token == null and user.remember_identifier == null ? ' disabled' : '' }}" href="{{ path_for('admin.users.edit.profile', {userId: user.id}) }}?revoke=remember">Revoke Remember Credentials</a>
-                    </div>
                 </div>
             </div>
         </div>

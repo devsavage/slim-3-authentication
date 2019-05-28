@@ -1,23 +1,18 @@
 {% extends 'admin/templates/admin.twig' %}
-{% set page = "adminRoleEdit" %}
+{% set page = "adminRoleCreate" %}
 {% block content %}
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="pull-left">Edit Role</h4>
-                    <div class="pull-right">
-                        {% if auth.user.isSuperAdmin() or auth.user.can('delete role') %}
-                            <a class="btn btn-danger" href="{{ path_for('admin.roles.delete', {roleId: role.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete Role</a>
-                        {% endif %}
-                    </div>
-                </div>
+                <h3 class="card-header">
+                    Create Role
+                </h3>
                 <div class="card-block">
-                    <form action="{{ path_for('admin.roles.edit', {roleId: role.id}) }}" method="POST">
+                    <form action="{{ path_for('admin.roles.create') }}" method="POST">
                         <div class="form-group row{{ errors.has('title') ? ' has-danger' : '' }}">
                             <label for="title" class="col-2 col-form-label">Title</label>
                             <div class="col-10">
-                                <input class="form-control{{ errors.has('title') ? ' form-control-danger' : '' }}" type="text" name="title" id="title" v value="{{ old.title ? old.title : role.title }}">
+                                <input class="form-control{{ errors.has('title') ? ' form-control-danger' : '' }}" type="text" name="title" id="title" v value="{{ old.title }}">
                                 {% if errors.has('title') %}
                                     <div class="form-control-feedback">{{ errors.first('title') }}</div>
                                 {% endif %}

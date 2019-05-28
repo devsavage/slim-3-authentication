@@ -14,6 +14,7 @@ $app->group('/admin', function() {
     //ROLES
     $this->route(['GET'], '/roles[/]', App\Http\Controllers\Admin\AdminRoleController::class)->setName('admin.roles.list');
     $this->route(['GET','POST'], '/roles/{roleId}/edit[/]', App\Http\Controllers\Admin\AdminRoleController::class, 'edit')->setName('admin.roles.edit');
+    $this->route(['GET','POST'], '/roles/create[/]', App\Http\Controllers\Admin\AdminRoleController::class, 'create')->setName('admin.roles.create');
     $this->route(['GET', 'POST'], '/roles/{roleId}/delete[/]', App\Http\Controllers\Admin\AdminRoleController::class, 'delete')->setName('admin.roles.delete');
 
 })->add(new App\Http\Middleware\AdminMiddleware($app->getContainer()));

@@ -1,9 +1,16 @@
-{% extends 'templates/app.twig' %}
+{% extends 'admin/templates/admin.twig' %}
 {% set page = "adminRoleList" %}
 {% block content %}
-    {% include 'admin/templates/partials/_header.twig' %}
 
     <div class="card">
+        <div class="card-header clearfix">
+            <h4 class="pull-left">Role List</h4>
+            <div class="pull-right">
+                {% if auth.user.isSuperAdmin() or auth.user.can('create role') %}
+                    <a class="btn btn-success" href="{{ path_for('admin.roles.create') }}"><i class="fa fa-plus fa-fw"></i> Create Role</a>
+                {% endif %}
+            </div>
+        </div>
         <div class="card-block">
             {% if roles is empty %}
                 <h4 class="text-center">No results found!</h4>
@@ -23,14 +30,15 @@
                             <td>{{ role.title }}</td>
                             <td class="text-center">
                                     {% if auth.user.isSuperAdmin() or auth.user.can('edit role') %}
-                                        <a href="{{ path_for('admin.roles.edit', {roleId: role.id})}}">
+                                        <a href="{{ path_for('admin.roles.edit', {roleId: role.id})}}" class="btn-sm btn-info">
                                     {% else %}
-                                            <a href="#">
+                                            <a href="#" class="btn-sm btn-danger disabled">
                                     {% endif %}
-                                    <span class="fa-stack">
-                                        <i class="fa fa-edit fa-stack-1x"></i>
+                                    <span>
                                         {% if not auth.user.isSuperAdmin() or auth.user.can('edit role') %}
-                                            <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                                            <i class="fa fa-ban"></i>
+                                        {% else %}
+                                            <i class="fa fa-edit"></i>
                                         {% endif %}
                                     </span>
                                 </a>

@@ -61,6 +61,45 @@ class AdminRoleController extends Controller
         ]);
     }
 
+    public function getCreate()
+    {
+
+        if(!$this->auth()->user()->can('create role') && !$this->auth()->user()->isSuperAdmin()) {
+            $this->flash('error', $this->lang('admin.role.general.cant_create'));
+            return $this->redirect('admin.roles.list');
+        }
+
+        return $this->render('admin/role/create');
+    }
+
+    public function postCreate()
+    {
+        $title = $this->param('title');
+
+        if(!$this->user()->can('edit role') && !$this->auth()->user()->isSuperAdmin()) {
+            $this->flash("error", $this->lang('admin.role.general.not_authorized'));
+            return $this->redirect('admin.roles.list');
+        }
+
+        $validator = $this->validator()->validate([
+            'title|Title' => [$title, "required|adminUniqueTitle()"],
+        ]);
+
+        if(!$validator->passes()) {
+            $this->flashNow('error', $this->lang('admin.general.fail'));
+            return $this->render('admin/role/create', [
+                'errors' => $validator->errors(),
+            ]);
+        }
+
+        Role::create([
+            'title' => $title
+        ]);
+
+        $this->flash('success', $this->lang('admin.general.created'));
+        return $this->redirect('admin.roles.list');
+    }
+
     public function getDelete($roleId)
     {
         $role = Role::where('id', $roleId)->first();

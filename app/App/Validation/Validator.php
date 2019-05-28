@@ -110,7 +110,7 @@ class Validator extends Violin
     {
         $role = Role::where('id', $args[1])->first();
 
-        if(!$role) {
+        if(!$role && ($args[1]!==NULL)) {
             return false;
         }
 

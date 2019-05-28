@@ -80,14 +80,16 @@ return [
                 ]
             ],
             'general' => [
+                'created' => "Created successfully!",
                 'success' => "Updated successfully!",
-                'fail' => "Cannot be updated!",
+                'fail' => "There was an error while trying to process your request!",
                 'deleted' => "Item has been deleted.",
                 'not_deleted' => "Item was not deleted.",
             ],
             'role' => [
                 'general' => [
                     'cant_edit' => "You do not have permission to edit that role!",
+                    'cant_create' => "You do not have permission to create new roles!",
                     'deleted' => "Role has been deleted.",
                     'not_deleted' => "Role was not deleted.",
                     'not_authorized' => "You are not authorized to complete that action!",
