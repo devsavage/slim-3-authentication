@@ -37,3 +37,4 @@ $app->add($container->csrf);
 $container['db']->bootEloquent();
 
 require INC_ROOT . '/../routes/web.php';
+require INC_ROOT . '/../routes/admin.php';
