@@ -78,6 +78,20 @@ return [
                         ]
                     ],
                 ]
+            ],
+            'general' => [
+                'success' => "Updated successfully!",
+                'fail' => "Cannot be updated!",
+                'deleted' => "Item has been deleted.",
+                'not_deleted' => "Item was not deleted.",
+            ],
+            'role' => [
+                'general' => [
+                    'cant_edit' => "You do not have permission to edit that role!",
+                    'deleted' => "Role has been deleted.",
+                    'not_deleted' => "Role was not deleted.",
+                    'not_authorized' => "You are not authorized to complete that action!",
+                ],
             ]
         ],
     ]

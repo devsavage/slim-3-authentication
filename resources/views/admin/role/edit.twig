@@ -1,0 +1,44 @@
+{% extends 'templates/app.twig' %}
+{% set page = "adminRoleEdit" %}
+{% block content %}
+    {% include 'admin/templates/partials/_header.twig' %}
+    <div class="row">
+        <div class="col-12">
+            <div class="pull-right">
+                {% if auth.user.can('delete role') %}
+                    <a class="btn btn-danger" href="{{ path_for('admin.roles.delete', {roleId: role.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete Role</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h3 class="card-header">
+                    Edit Role
+                </h3>
+                <div class="card-block">
+                    <form action="{{ path_for('admin.roles.edit', {roleId: role.id}) }}" method="POST">
+                        <div class="form-group row{{ errors.has('title') ? ' has-danger' : '' }}">
+                            <label for="title" class="col-2 col-form-label">Title</label>
+                            <div class="col-10">
+                                <input class="form-control{{ errors.has('title') ? ' form-control-danger' : '' }}" type="text" name="title" id="title" v value="{{ old.title ? old.title : role.title }}">
+                                {% if errors.has('title') %}
+                                    <div class="form-control-feedback">{{ errors.first('title') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <hr>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'templates/app.twig' %}
+{% set page = "adminRoleList" %}
+{% block content %}
+    {% include 'admin/templates/partials/_header.twig' %}
+
+    <div class="card">
+        <div class="card-block">
+            {% if roles is empty %}
+                <h4 class="text-center">No results found!</h4>
+            {% else %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for role in roles %}
+                        <tr>
+                            <td>{{ role.id }}</td>
+                            <td>{{ role.title }}</td>
+                            <td class="text-center">
+                                <a href="{{ auth.user.isSuperAdmin() or auth.user.can('edit role') ? path_for('admin.roles.edit', {roleId: role.id}) : '#' }}">
+                                    <span class="fa-stack">
+                                        <i class="fa fa-edit fa-stack-1x"></i>
+                                        {% if not auth.user.isSuperAdmin() or not auth.user.can('edit role') %}
+                                            <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                                        {% endif %}
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Validation;
 
+use App\Database\Role;
 use Violin\Violin;
 use Interop\Container\ContainerInterface;
 
@@ -46,6 +47,7 @@ class Validator extends Violin
             'matchesCurrentPassword' => 'Your current password is incorrect.',
             'adminUniqueEmail' => "This e-mail is tied to another account.",
             'adminUniqueUsername' => "This username is taken by another account.",
+            'adminUniqueTitle' => "This title is taken by another role.",
         ]);
     }
 
@@ -102,5 +104,20 @@ class Validator extends Violin
         }
 
         return !(bool) $this->container->user->where('username', $value)->count();
+    }
+
+    public function validate_adminUniqueTitle($value, $input, $args)
+    {
+        $role = Role::where('id', $args[1])->first();
+
+        if(!$role) {
+            return false;
+        }
+
+        if($role->title === $args[0]) {
+            return true;
+        }
+
+        return !(bool) Role::where('title', $value)->count();
     }
 }
