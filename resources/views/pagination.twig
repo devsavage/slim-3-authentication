@@ -1,0 +1,17 @@
+{% if paginator.hasPages() %}
+    <ul class="pagination" role="navigation">
+        {% for element in elements %}
+
+            {% if element is iterable %}
+                {% for page, url in element %}
+                    {% if page == paginator.currentPage() %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{{ pagination_url(current_path,url) }}">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+        {% endfor %}
+    </ul>
+{% endif %}
