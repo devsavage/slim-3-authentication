@@ -1,7 +1,5 @@
-{% extends 'templates/app.twig' %}
+{% extends 'admin/templates/admin.twig' %}
 {% block content %}
-    {% include 'admin/templates/partials/_header.twig' %}
-    
     <div class="text-center">
         <h3>Are you sure you want to delete <b>{{ role.title}}</b> role?</h3>
         <h4 class="text-danger">Warning: This will delete all records tied to this role and cannot be undone!</h4>

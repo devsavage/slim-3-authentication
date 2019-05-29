@@ -18,4 +18,10 @@ $app->group('/admin', function() {
     $this->route(['GET','POST'], '/roles/create[/]', App\Http\Controllers\Admin\AdminRoleController::class, 'create')->setName('admin.roles.create');
     $this->route(['GET', 'POST'], '/roles/{roleId}/delete[/]', App\Http\Controllers\Admin\AdminRoleController::class, 'delete')->setName('admin.roles.delete');
 
+    //PERMISSIONS
+    $this->route(['GET'], '/permissions[/]', App\Http\Controllers\Admin\AdminPermissionController::class)->setName('admin.permissions.list');
+    $this->route(['GET','POST'], '/permissions/{permissionId}/edit[/]', App\Http\Controllers\Admin\AdminPermissionController::class, 'edit')->setName('admin.permissions.edit');
+    $this->route(['GET','POST'], '/permissions/create[/]', App\Http\Controllers\Admin\AdminPermissionController::class, 'create')->setName('admin.permissions.create');
+    $this->route(['GET', 'POST'], '/permissions/{permissionId}/delete[/]', App\Http\Controllers\Admin\AdminPermissionController::class, 'delete')->setName('admin.permissions.delete');
+
 })->add(new App\Http\Middleware\AdminMiddleware($app->getContainer()));

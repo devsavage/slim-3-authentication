@@ -1,0 +1,33 @@
+{% extends 'admin/templates/admin.twig' %}
+{% set page = "adminPermissionCreate" %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h3 class="card-header">
+                    Create Permission
+                </h3>
+                <div class="card-block">
+                    <form action="{{ path_for('admin.permissions.create') }}" method="POST">
+                        <div class="form-group row{{ errors.has('name') ? ' has-danger' : '' }}">
+                            <label for="name" class="col-2 col-form-label">Name</label>
+                            <div class="col-10">
+                                <input class="form-control{{ errors.has('name') ? ' form-control-danger' : '' }}" type="text" name="name" id="name" v value="{{ old.name }}">
+                                {% if errors.has('name') %}
+                                    <div class="form-control-feedback">{{ errors.first('name') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <hr>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
