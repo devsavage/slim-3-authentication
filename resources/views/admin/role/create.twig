@@ -12,9 +12,22 @@
                         <div class="form-group row{{ errors.has('title') ? ' has-danger' : '' }}">
                             <label for="title" class="col-2 col-form-label">Title</label>
                             <div class="col-10">
-                                <input class="form-control{{ errors.has('title') ? ' form-control-danger' : '' }}" type="text" name="title" id="title" v value="{{ old.title }}">
+                                <input class="form-control{{ errors.has('title') ? ' form-control-danger' : '' }}" type="text" name="title" id="title" value="{{ old.title }}">
                                 {% if errors.has('title') %}
                                     <div class="form-control-feedback">{{ errors.first('title') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row{{ errors.has('permissions') ? ' has-danger' : '' }}">
+                            <label for="permissions" class="col-2 col-form-label">Permissions</label>
+                            <div class="col-10">
+                                <select class="form-control{{ errors.has('permissions') ? ' form-control-danger' : '' }}" name="permissions[]" multiple>
+                                    {% for permission in permissions %}
+                                        <option value="{{ permission.id }}"> {{ permission.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if errors.has('permissions') %}
+                                    <div class="form-control-feedback">{{ errors.first('permissions') }}</div>
                                 {% endif %}
                             </div>
                         </div>

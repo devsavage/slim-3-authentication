@@ -14,7 +14,8 @@ class RolesPermissions extends Migration
             $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
             //$table->primary(['role_id','permission_id']);
             // Required for Eloquent's created_at and updated_at columns
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
     public function down()  {

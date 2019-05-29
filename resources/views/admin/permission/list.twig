@@ -34,7 +34,7 @@
                                 {% else %}
                                     <a href="#" class="btn btn-sm btn-danger disabled">
                                 {% endif %}
-                                    {% if not auth.user.isSuperAdmin() or auth.user.can('edit permission') %}
+                                    {% if not auth.user.isSuperAdmin() or not auth.user.can('edit permission') %}
                                         <i class="fa fa-ban"></i>
                                     {% else %}
                                         <i class="fa fa-edit"></i>

@@ -17,7 +17,7 @@
                         <div class="form-group row{{ errors.has('name') ? ' has-danger' : '' }}">
                             <label for="name" class="col-2 col-form-label">Name</label>
                             <div class="col-10">
-                                <input class="form-control{{ errors.has('name') ? ' form-control-danger' : '' }}" type="text" name="name" id="name" v value="{{ old.name ? old.name : permission.name }}">
+                                <input class="form-control{{ errors.has('name') ? ' form-control-danger' : '' }}" type="text" name="name" id="name" value="{{ old.name ? old.name : permission.name }}">
                                 {% if errors.has('name') %}
                                     <div class="form-control-feedback">{{ errors.first('name') }}</div>
                                 {% endif %}

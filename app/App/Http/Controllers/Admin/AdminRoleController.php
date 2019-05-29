@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Database\Role;
+use App\Database\Permission;
 use App\Http\Controllers\Controller;
 
 class AdminRoleController extends Controller
@@ -16,7 +17,8 @@ class AdminRoleController extends Controller
 
     public function getEdit($roleId)
     {
-        $role = Role::where('id', $roleId)->first();
+        $role = Role::with('permissions')->where('id', $roleId)->first();
+        $permissions = Permission::all();
 
         if(!$this->auth()->user()->can('edit role') && !$this->auth()->user()->isSuperAdmin()) {
             $this->flash('error', $this->lang('admin.role.general.cant_edit'));
@@ -25,12 +27,14 @@ class AdminRoleController extends Controller
 
         return $this->render('admin/role/edit', [
             'role' => $role,
+            'permissions' => $permissions,
         ]);
     }
 
     public function postEdit($roleId)
     {
         $title = $this->param('title');
+        $permissions = $this->param('permissions');
 
         $role = Role::where('id', $roleId)->first();
 
@@ -41,6 +45,7 @@ class AdminRoleController extends Controller
 
         $validator = $this->validator()->validate([
             'title|Title' => [$title, "required|adminUniqueTitle({$title},{$role->id})"],
+            'permissions|Permissions' => [$permissions, "array"]
         ]);
 
         if(!$validator->passes()) {
@@ -55,6 +60,14 @@ class AdminRoleController extends Controller
             'title' => $title
         ]);
 
+        $role->permissions()->detach();
+        if($permissions){
+            foreach ($permissions as $permission_name) {
+                $permission = Permission::where('id',$permission_name)->first();
+                $role->givePermissionTo($permission);
+            }
+        }
+
         $this->flash('success', $this->lang('admin.general.success'));
         return $this->redirect('admin.roles.edit', [
             'roleId' => $roleId,
@@ -63,18 +76,22 @@ class AdminRoleController extends Controller
 
     public function getCreate()
     {
+        $permissions = Permission::all();
 
         if(!$this->auth()->user()->can('create role') && !$this->auth()->user()->isSuperAdmin()) {
             $this->flash('error', $this->lang('admin.role.general.cant_create'));
             return $this->redirect('admin.roles.list');
         }
 
-        return $this->render('admin/role/create');
+        return $this->render('admin/role/create',[
+            'permissions' => $permissions,
+        ]);
     }
 
     public function postCreate()
     {
         $title = $this->param('title');
+        $permissions = $this->param('permissions');
 
         if(!$this->user()->can('edit role') && !$this->auth()->user()->isSuperAdmin()) {
             $this->flash("error", $this->lang('admin.role.general.not_authorized'));
@@ -92,9 +109,17 @@ class AdminRoleController extends Controller
             ]);
         }
 
-        Role::create([
+        $role = Role::create([
             'title' => $title
         ]);
+
+        $role->permissions()->detach();
+        if($permissions){
+            foreach ($permissions as $permission_name) {
+                $permission = Permission::where('id',$permission_name)->first();
+                $role->givePermissionTo($permission);
+            }
+        }
 
         $this->flash('success', $this->lang('admin.general.created'));
         return $this->redirect('admin.roles.list');
