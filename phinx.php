@@ -7,6 +7,9 @@ return [
         'migrations' => 'database/migrations',
         'seeds' => 'database/seeds'
     ],
+    'templates' => [
+        'file' => 'resources/phinx/Migration.template.php.dist'
+    ],
     'migration_base_class' => '\Migration\Migration',
     'environments' => [
         'default_migration_table' => 'phinxlog',
