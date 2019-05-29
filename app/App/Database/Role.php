@@ -3,6 +3,8 @@
 namespace App\Database;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination;
+use Illuminate\Pagination\Paginator;
 
 class Role extends Model
 {

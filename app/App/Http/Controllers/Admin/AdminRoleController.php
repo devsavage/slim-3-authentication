@@ -10,7 +10,7 @@ class AdminRoleController extends Controller
     public function get()
     {
         return $this->render('admin/role/list', [
-            'roles' => Role::all(),
+            'roles' => Role::paginate(),
         ]);
     }
 

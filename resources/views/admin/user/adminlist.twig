@@ -1,10 +1,10 @@
 {% extends 'admin/templates/admin.twig' %}
-{% set page = "adminUserList" %}
+{% set page = "adminAdminList" %}
 {% block content %}
 
     <div class="card">
         <div class="card-header clearfix">
-            <h4 class="pull-left">User List</h4>
+            <h4 class="pull-left">Admin List</h4>
         </div>
         <div class="card-block">
             {% if users is empty %}
@@ -34,19 +34,19 @@
                                 <a href="{{ path_for('admin.users.edit', {userId: user.id}) }}" class="btn-sm btn-info">
                                     {% else %}
                                     <a href="#" class="btn btn-sm btn-danger disabled">
-                                        {% endif %}
-                                        {% if not auth.user.canEdit(user) %}
-                                            <i class="fa fa-ban"></i>
-                                        {% else %}
-                                            <i class="fa fa-edit"></i>
-                                        {% endif %}
-                                    </a>
+                                    {% endif %}
+                                    {% if not auth.user.canEdit(user) %}
+                                        <i class="fa fa-ban"></i>
+                                    {% else %}
+                                        <i class="fa fa-edit"></i>
+                                    {% endif %}
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-                {{ users.links|raw }}
+                {{ roles.users|raw }}
             {% endif %}
         </div>
     </div>

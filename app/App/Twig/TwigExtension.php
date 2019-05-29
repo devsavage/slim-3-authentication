@@ -22,6 +22,7 @@ class TwigExtension extends \Twig\Extension\AbstractExtension
             new \Twig\TwigFunction('asset', [$this, 'asset']),
             new \Twig\TwigFunction('getenv', [$this, 'getenv']),
             new \Twig\TwigFunction('config', [$this, 'config']),
+            new \Twig\TwigFunction('pagination_url', [$this, 'pagination_url']),
         ];
     }
 
@@ -38,5 +39,11 @@ class TwigExtension extends \Twig\Extension\AbstractExtension
     public function config($key)
     {
         return $this->container->config->get($key);
+    }
+
+    public function pagination_url($path,$url)
+    {
+
+        return $path.ltrim($url, '/');
     }
 }

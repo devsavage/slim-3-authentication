@@ -7,6 +7,7 @@ use App\App;
 use App\Http\Middleware\CsrfMiddleware;
 use App\Http\Middleware\OldInputMiddleware;
 use App\Http\Middleware\RememberMiddleware;
+use App\Http\Middleware\Pagination;
 use Slim\Container;
 
 define('INC_ROOT', __DIR__);
@@ -31,6 +32,7 @@ $container['config'] = function($c) {
 $app->add(RememberMiddleware::class);
 $app->add(CsrfMiddleware::class);
 $app->add(OldInputMiddleware::class);
+$app->add(Pagination::class) ;
 
 $app->add($container->csrf);
 

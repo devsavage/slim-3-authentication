@@ -1,5 +1,14 @@
 <div class="list-group">
-  <a class="list-group-item {{ page == "adminHome" ? ' active' : '' }}" href="{{ path_for('admin.home') }}">Home</a>
-  <a class="list-group-item {{ page == "adminUserList" ? ' active' : '' }}" href="{{ path_for('admin.users.list') }}">User List</a>
-  <a class="list-group-item {{ page == "adminRoleList" ? ' active' : '' }}" href="{{ path_for('admin.roles.list') }}">Role List</a>
+  <a class="list-group-item {{ page == "adminHome" ? ' active' : '' }}" href="{{ path_for('admin.home') }}">
+      <i class="fa fa-home">&nbsp;</i>Home
+  </a>
+  <a class="list-group-item {{ page == "adminUserList" ? ' active' : '' }}" href="{{ path_for('admin.users.list') }}">
+      <i class="fa fa-users">&nbsp;</i>User List
+  </a>
+  <a class="list-group-item {{ page == "adminAdminList" ? ' active' : '' }}" href="{{ path_for('admin.admins.list') }}">
+      <i class="fa fa-user-secret">&nbsp;</i>Admin List
+  </a>
+  <a class="list-group-item {{ page == "adminRoleList" ? ' active' : '' }}" href="{{ path_for('admin.roles.list') }}">
+      <i class="fa fa-lock">&nbsp;</i>Role List
+  </a>
 </div>
