@@ -56,6 +56,25 @@ $ yarn dev
 3. Go to **phpMyAdmin**, select **user_roles** table and insert a new record. Select your user on **user_id** field, select "superadmin" on **role_id** field and confirm.
 4. Login on site to see "Admin Dashboard" on header menu 
 
+#### Migrations and Seeds
+Create migration file
+```bash
+php phinx create MigrationName
+```
+Create seed file
+```bash
+php phinx seed:create SeedName
+```
+Run migrations
+```bash
+php phinx migrate
+```
+Run seeds
+```bash
+php phinx seed:run
+```
+Use `php phinx` on terminal to see all available command list.
+
 #### You will also need Google reCAPTCHA API keys. Get them [here](https://www.google.com/recaptcha).
 
 *If you would like to completely disable reCAPTCHA, see this [page](https://github.com/devsavage/slim-3-authentication/wiki/Completely-remove-reCAPTCHA)*
