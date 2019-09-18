@@ -1,7 +1,6 @@
-{% extends 'templates/app.twig' %}
+{% extends 'admin/templates/admin.twig' %}
 {% set page = "adminUserEdit" %}
 {% block content %}
-    {% include 'admin/templates/partials/_header.twig' %}
     <div class="row">
         <div class="col-12">
             <div class="pull-right">
@@ -26,7 +25,7 @@
                         <div class="form-group row{{ errors.has('username') ? ' has-danger' : '' }}">
                             <label for="username" class="col-2 col-form-label">Username</label>
                             <div class="col-10">
-                                <input class="form-control{{ errors.has('username') ? ' form-control-danger' : '' }}" type="text" name="username" id="username" v value="{{ old.username ? old.username : user.username }}">
+                                <input class="form-control{{ errors.has('username') ? ' form-control-danger' : '' }}" type="text" name="username" id="username" value="{{ old.username ? old.username : user.username }}">
                                 {% if errors.has('username') %}
                                     <div class="form-control-feedback">{{ errors.first('username') }}</div>
                                 {% endif %}
@@ -79,14 +78,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-block">
-                    <div class="text-center">
-                        <a class="btn btn-secondary{{ user.recover_hash == null ? ' disabled' : '' }}" href="{{ path_for('admin.users.edit.profile', {userId: user.id}) }}?revoke=recovery">Revoke Recovery Hash</a>
-                        <a class="btn btn-secondary {{ user.remember_token == null and user.remember_identifier == null ? ' disabled' : '' }}" href="{{ path_for('admin.users.edit.profile', {userId: user.id}) }}?revoke=remember">Revoke Remember Credentials</a>
-                    </div>
                 </div>
             </div>
         </div>

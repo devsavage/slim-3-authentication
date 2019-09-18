@@ -40,7 +40,7 @@ $ yarn install
 ```bash
 APP_ENV=development
 ```
-You will need to update the APP_ENV variable to "production" when serving your application outside of a local environment!
+You will need to update the **APP_ENV** variable to "production" when serving your application outside of a local environment!
 
 #### Build assets (prodution or development)
 ```bash
@@ -50,6 +50,30 @@ $ yarn prod
 ```bash
 $ yarn dev
 ```
+#### Database and Admin
+1. Import auth.sql file to your database.
+2. Open your site, register a new user and click on activation link sent to your email
+3. Go to **phpMyAdmin**, select **user_roles** table and insert a new record. Select your user on **user_id** field, select "superadmin" on **role_id** field and confirm.
+4. Login on site to see "Admin Dashboard" on header menu 
+
+#### Migrations and Seeds
+Create migration file
+```bash
+php phinx create MigrationName
+```
+Create seed file
+```bash
+php phinx seed:create SeedName
+```
+Run migrations
+```bash
+php phinx migrate
+```
+Run seeds
+```bash
+php phinx seed:run
+```
+Use `php phinx` on terminal to see all available command list.
 
 #### You will also need Google reCAPTCHA API keys. Get them [here](https://www.google.com/recaptcha).
 

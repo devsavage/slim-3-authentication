@@ -1,15 +1,27 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Database\User;
+use App\Database\UserRole;
 use App\Http\Controllers\Controller;
 
 class AdminUserController extends Controller
 {
     public function get()
     {
+        $user_roles = UserRole::get('user_id');
+
         return $this->render('admin/user/list', [
-            'users' => User::all()->except($this->user()->id),
+            'users' => User::whereNotIn('id',$user_roles)->paginate(),
+        ]);
+    }
+    public function getAdmins()
+    {
+        $user_roles = UserRole::get('user_id')->except($this->user()->id);
+
+        return $this->render('admin/user/adminlist', [
+            'users' => User::whereIn('id',$user_roles)->paginate(),
         ]);
     }
 

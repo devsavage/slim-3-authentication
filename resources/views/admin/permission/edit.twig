@@ -1,0 +1,38 @@
+{% extends 'admin/templates/admin.twig' %}
+{% set page = "adminPermissionEdit" %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="pull-left">Edit Permission</h4>
+                    <div class="pull-right">
+                        {% if auth.user.isSuperAdmin() or auth.user.can('delete permission') %}
+                            <a class="btn btn-danger" href="{{ path_for('admin.permissions.delete', {permissionId: permission.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete Permission</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-block">
+                    <form action="{{ path_for('admin.permissions.edit', {permissionId: permission.id}) }}" method="POST">
+                        <div class="form-group row{{ errors.has('name') ? ' has-danger' : '' }}">
+                            <label for="name" class="col-2 col-form-label">Name</label>
+                            <div class="col-10">
+                                <input class="form-control{{ errors.has('name') ? ' form-control-danger' : '' }}" type="text" name="name" id="name" value="{{ old.name ? old.name : permission.name }}">
+                                {% if errors.has('name') %}
+                                    <div class="form-control-feedback">{{ errors.first('name') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <hr>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

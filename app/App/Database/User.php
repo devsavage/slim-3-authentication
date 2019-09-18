@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Database;
 
 use App\Traits\HasPermissionsTrait;

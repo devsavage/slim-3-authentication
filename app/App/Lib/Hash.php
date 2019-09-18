@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Lib;
 
 use RandomLib\Factory as RandomLib;

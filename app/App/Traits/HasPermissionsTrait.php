@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Traits;
 
 use App\Database\Permission;
 use App\Database\Role;
+use Illuminate\Support\Arr;
 
 use Illuminate\Support\Collection;
 
@@ -10,7 +12,7 @@ trait HasPermissionsTrait
 {
     public function givePermissionTo(...$permissions)
     {
-        $permissions = $this->getAllPermissions(array_flatten($permissions));
+        $permissions = $this->getAllPermissions(Arr::flatten($permissions));
 
         if ($permissions === null) {
             return $this;
@@ -27,7 +29,7 @@ trait HasPermissionsTrait
 
     public function withdrawPermissionTo(...$permissions)
     {
-        $permissions = $this->getAllPermissions(array_flatten($permissions));
+        $permissions = $this->getAllPermissions(Arr::flatten($permissions));
 
         $this->permissions()->detach($permissions);
 

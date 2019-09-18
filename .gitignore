@@ -3,3 +3,5 @@
 .env
 /node_modules
 .phpintel
+/.idea
+1.IDEIAS.txt

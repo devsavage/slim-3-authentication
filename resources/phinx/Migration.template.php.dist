@@ -1,0 +1,19 @@
+<?php
+
+use $useClassName;
+
+class $className extends $baseClassName
+{
+    public function up() {
+        $this->schema->create('TABLE_NAME_HERE', function(Illuminate\Database\Schema\Blueprint $table){
+            // Auto-increment id
+            $table->increments('id');
+            // Required for Eloquent's created_at and updated_at columns
+            $table->timestamps();
+        });
+    }
+
+    public function down() {
+        $this->schema->drop('TABLE_NAME_HERE');
+    }
+}

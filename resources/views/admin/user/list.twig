@@ -1,9 +1,11 @@
-{% extends 'templates/app.twig' %}
+{% extends 'admin/templates/admin.twig' %}
 {% set page = "adminUserList" %}
 {% block content %}
-    {% include 'admin/templates/partials/_header.twig' %}
 
     <div class="card">
+        <div class="card-header clearfix">
+            <h4 class="pull-left">User List</h4>
+        </div>
         <div class="card-block">
             {% if users is empty %}
                 <h4 class="text-center">You don't have any registerd users.</h4>
@@ -25,22 +27,26 @@
                             <td class="{{ user.isAdmin() or user.isSuperAdmin() ? 'text-danger' : '' }}">{{ user.username }}</td>
                             <td>{{ user.email }}</td>
                             <td>
-                                {{ user.active == true ? 'Yes' : 'No' }}
+                                <label class="badge badge-{{ user.active == true ? 'success' : 'danger' }}">{{ user.active == true ? 'Yes' : 'No' }}</label>
                             </td>
                             <td class="text-center">
-                                <a href="{{ auth.user.canEdit(user) ? path_for('admin.users.edit', {userId: user.id}) : '#' }}">
-                                    <span class="fa-stack">
-                                        <i class="fa fa-edit fa-stack-1x"></i>
-                                        {% if not auth.user.canEdit(user) %}
-                                            <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                                {% if auth.user.canEdit(user) %}
+                                <a href="{{ path_for('admin.users.edit', {userId: user.id}) }}" class="btn-sm btn-info">
+                                    {% else %}
+                                    <a href="#" class="btn btn-sm btn-danger disabled">
                                         {% endif %}
-                                    </span>
-                                </a>
+                                        {% if not auth.user.canEdit(user) %}
+                                            <i class="fa fa-ban"></i>
+                                        {% else %}
+                                            <i class="fa fa-edit"></i>
+                                        {% endif %}
+                                    </a>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+                {{ users.links|raw }}
             {% endif %}
         </div>
     </div>

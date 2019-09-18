@@ -1,0 +1,51 @@
+{% extends 'admin/templates/admin.twig' %}
+{% set page = "adminRoleEdit" %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="pull-left">Edit Role</h4>
+                    <div class="pull-right">
+                        {% if auth.user.isSuperAdmin() or auth.user.can('delete role') %}
+                            <a class="btn btn-danger" href="{{ path_for('admin.roles.delete', {roleId: role.id}) }}"><i class="fa fa-trash fa-fw"></i> Delete Role</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-block">
+                    <form action="{{ path_for('admin.roles.edit', {roleId: role.id}) }}" method="POST">
+                        <div class="form-group row{{ errors.has('title') ? ' has-danger' : '' }}">
+                            <label for="title" class="col-2 col-form-label">Title</label>
+                            <div class="col-10">
+                                <input class="form-control{{ errors.has('title') ? ' form-control-danger' : '' }}" type="text" name="title" id="title" value="{{ old.title ? old.title : role.title }}">
+                                {% if errors.has('title') %}
+                                    <div class="form-control-feedback">{{ errors.first('title') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group row{{ errors.has('permissions') ? ' has-danger' : '' }}">
+                            <label for="permissions" class="col-2 col-form-label">Permissions</label>
+                            <div class="col-10">
+                                <select class="form-control{{ errors.has('permissions') ? ' form-control-danger' : '' }}" name="permissions[]" multiple>
+                                {% for permission in permissions %}
+                                    <option value="{{ permission.id }}" {% if permission.id in role.permissions|column('id') %}selected{% endif %}> {{ permission.name }}</option>
+                                {% endfor %}
+                                </select>
+                                {% if errors.has('permissions') %}
+                                    <div class="form-control-feedback">{{ errors.first('permissions') }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <hr>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
