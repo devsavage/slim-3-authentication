@@ -10,7 +10,7 @@ class Role extends Model
 {
     protected $table = 'roles';
 
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'hidden'];
     
     public function permissions()
     {

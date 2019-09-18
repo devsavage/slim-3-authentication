@@ -11,13 +11,19 @@ class AdminRoleController extends Controller
     public function get()
     {
         return $this->render('admin/role/list', [
-            'roles' => Role::paginate(),
+            'roles' => Role::where("hidden", false)->paginate(),
         ]);
     }
 
     public function getEdit($roleId)
     {
         $role = Role::with('permissions')->where('id', $roleId)->first();
+
+        if((bool)$role->hidden) {
+            $this->flash('error', $this->lang('admin.role.general.cant_edit'));
+            return $this->redirect('admin.roles.list');
+        }
+
         $permissions = Permission::all();
 
         if(!$this->auth()->user()->can('edit role') && !$this->auth()->user()->isSuperAdmin()) {
@@ -36,7 +42,7 @@ class AdminRoleController extends Controller
         $title = $this->param('title');
         $permissions = $this->param('permissions');
 
-        $role = Role::where('id', $roleId)->first();
+        $role = Role::where('id', $roleId)->where("hidden", false)->first();
 
         if(!$this->user()->can('edit role') && !$this->auth()->user()->isSuperAdmin()) {
             $this->flash("error", $this->lang('admin.role.general.not_authorized'));
@@ -61,6 +67,7 @@ class AdminRoleController extends Controller
         ]);
 
         $role->permissions()->detach();
+
         if($permissions){
             foreach ($permissions as $permission_name) {
                 $permission = Permission::where('id',$permission_name)->first();
@@ -127,7 +134,7 @@ class AdminRoleController extends Controller
 
     public function getDelete($roleId)
     {
-        $role = Role::where('id', $roleId)->first();
+        $role = Role::where('id', $roleId)->where("hidden", false)->first();
 
         if(!$this->user()->can('edit role') && !$this->auth()->user()->isSuperAdmin()) {
             $this->flash("error", $this->lang('admin.user.general.not_authorized'));
@@ -141,7 +148,7 @@ class AdminRoleController extends Controller
 
     public function postDelete($roleId)
     {
-        $role = Role::where('id', $roleId)->first();
+        $role = Role::where('id', $roleId)->where("hidden", false)->first();
 
         if(!$this->user()->can('delete role') && !$this->auth()->user()->isSuperAdmin()) {
             $this->flash("error", $this->lang('admin.user.general.not_authorized'));

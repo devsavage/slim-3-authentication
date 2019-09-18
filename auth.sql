@@ -40,6 +40,7 @@ INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
+  `hidden` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -47,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 -- Dumping data for table auth.roles: ~2 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (`id`, `title`, `created_at`, `updated_at`) VALUES
-	(1, 'admin', '2017-02-19 23:37:00', '2017-02-19 23:37:02'),
-	(2, 'superadmin', '2017-02-19 23:37:09', '2017-02-19 23:37:14');
+INSERT INTO `roles` (`id`, `title`, `hidden`, `created_at`, `updated_at`) VALUES
+	(1, 'admin', '0', '2017-02-19 23:37:00', '2017-02-19 23:37:02'),
+	(2, 'superadmin', '1', '2017-02-19 23:37:09', '2017-02-19 23:37:14');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table auth.roles_permissions

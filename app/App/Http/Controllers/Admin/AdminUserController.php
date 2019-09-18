@@ -56,7 +56,6 @@ class AdminUserController extends Controller
                     ]);
                     break;
                 default:
-                    continue;
                     break;
             }
         }
@@ -159,7 +158,6 @@ class AdminUserController extends Controller
                 ]);
                 break;
             default:
-                continue;
                 break;
         }
     }
@@ -236,7 +234,6 @@ class AdminUserController extends Controller
                 $this->flash("raw_success", "You have removed the role <b>{$role}</b> from <b>{$user->username}</b>.");
                 break;
             default:
-                continue;
                 break;
         }
 

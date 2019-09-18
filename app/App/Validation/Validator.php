@@ -4,7 +4,7 @@ namespace App\Validation;
 
 use App\Database\Permission;
 use App\Database\Role;
-use Violin\Violin;
+use App\Validation\Violin\Violin;
 use Interop\Container\ContainerInterface;
 
 class Validator extends Violin
@@ -112,7 +112,7 @@ class Validator extends Violin
     {
         $role = Role::where('id', $args[1])->first();
 
-        if(!$role && ($args[1]!==NULL)) {
+        if(!$role && ($args[1] !== NULL)) {
             return false;
         }
 

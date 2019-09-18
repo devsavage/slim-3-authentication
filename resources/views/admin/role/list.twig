@@ -31,14 +31,11 @@
                             <td class="text-center">
                                 {% if auth.user.isSuperAdmin() or auth.user.can('edit role') %}
                                     <a href="{{ path_for('admin.roles.edit', {roleId: role.id})}}" class="btn-sm btn-info">
+                                        <i class="fa fa-edit"></i>
                                 {% else %}
                                     <a href="#" class="btn btn-sm btn-danger disabled">
-                                {% endif %}
-                                    {% if not auth.user.isSuperAdmin() or not auth.user.can('edit role') %}
                                         <i class="fa fa-ban"></i>
-                                    {% else %}
-                                        <i class="fa fa-edit"></i>
-                                    {% endif %}
+                                {% endif %}
                                 </a>
                             </td>
                         </tr>
